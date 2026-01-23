@@ -27,38 +27,40 @@ export default function FeaturedLecturers() {
   };
 
   return (
-    <section className="py-24 bg-slate-50 overflow-hidden">
+    <section className="py-16 bg-slate-50 overflow-hidden">
+      {' '}
+      {/* Reduced vertical padding */}
       <div className="max-w-7xl mx-auto px-6 relative">
-        {/* Header Section */}
-        <div className="mb-12 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
+        {/* Header Section - More compact margins */}
+        <div className="mb-8 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="max-w-xl">
             <motion.h4
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              className="text-red-500 font-bold uppercase tracking-tighter text-sm mb-3"
+              className="text-red-500 font-bold uppercase tracking-tighter text-xs mb-2"
             >
               Academic Leadership
             </motion.h4>
-            <h2 className="text-4xl md:text-5xl font-black text-blue-950">
+            <h2 className="text-3xl md:text-4xl font-black text-blue-950">
               Meet Our Expert <span className="text-blue-600">Lecturers</span>
             </h2>
           </div>
 
-          {/* Controls */}
-          <div className="flex gap-4 self-center md:self-end">
+          {/* Controls - Smaller buttons */}
+          <div className="flex gap-2 self-center md:self-end">
             <button
               onClick={() => scroll('left')}
               disabled={!canScrollLeft}
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-md border border-slate-200 text-blue-900 hover:bg-blue-600 hover:text-white transition-all disabled:opacity-20"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-slate-200 text-blue-900 hover:bg-blue-600 hover:text-white transition-all disabled:opacity-20"
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft size={20} />
             </button>
             <button
               onClick={() => scroll('right')}
               disabled={!canScrollRight}
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-md border border-slate-200 text-blue-900 hover:bg-blue-600 hover:text-white transition-all disabled:opacity-20"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-slate-200 text-blue-900 hover:bg-blue-600 hover:text-white transition-all disabled:opacity-20"
             >
-              <ChevronRight size={24} />
+              <ChevronRight size={20} />
             </button>
           </div>
         </div>
@@ -67,48 +69,44 @@ export default function FeaturedLecturers() {
         <motion.div
           ref={containerRef}
           onScroll={checkScroll}
-          className="flex gap-8 overflow-x-auto no-scrollbar pb-12 pt-4 snap-x snap-mandatory   cursor-grab active:cursor-grabbing"
+          className="flex gap-6 overflow-x-auto no-scrollbar pb-8 pt-2 snap-x snap-mandatory cursor-grab active:cursor-grabbing"
         >
           {lecturers.map((lecturer, index) => (
             <motion.div
               key={lecturer.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="min-w-[320px] bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-100 snap-start group"
+              className="min-w-65 md:min-w-70 bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 snap-start group"
             >
-              {/* Image Container */}
-              <div className="h-96 relative overflow-hidden">
+              {/* Image Container - Height reduced from h-96 to h-64 */}
+              <div className="h-64 relative overflow-hidden">
                 <img
                   src={lecturer.img}
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
                   alt={lecturer.name}
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-blue-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                <div className="absolute inset-0 bg-linear-to-t from-blue-950/60 via-transparent to-transparent opacity-60" />
               </div>
 
-              {/* Multi-Role Content Area */}
-              <div className="p-6 relative">
-                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+              {/* Content Area - Reduced padding from p-6 to p-5 */}
+              <div className="p-5 relative">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
                   {lecturer.name}
                 </h3>
 
-                {/* Mapping through multiple roles */}
-                <div className="flex flex-wrap gap-2">
+                {/* Roles - Smaller text */}
+                <div className="flex flex-wrap gap-1.5">
                   {lecturer.roles.map((role, rIdx) => (
                     <span
                       key={rIdx}
-                      className="bg-blue-50 text-blue-700 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wide border border-blue-100"
+                      className="bg-blue-50 text-blue-700 text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide border border-blue-100"
                     >
                       {role}
                     </span>
                   ))}
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-50 flex justify-between items-center">
-                  <button className="text-sm font-black text-slate-800 hover:text-red-500 transition-colors flex items-center gap-1">
-                    VIEW PROFILE <span>→</span>
+                <div className="mt-4 pt-3 border-t border-slate-50 flex justify-between items-center">
+                  <button className="text-[11px] font-black text-slate-400 hover:text-red-500 transition-colors flex items-center gap-1 uppercase tracking-widest">
+                    View Profile <span>→</span>
                   </button>
                 </div>
               </div>

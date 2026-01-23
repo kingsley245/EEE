@@ -209,44 +209,51 @@ export default function CourseCurriculum() {
             }}
           >
             {currentLevelData.map((course) => (
-              <div key={course.id} className="w-full md:w-1/3 shrink-0 px-4">
-                <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-transparent hover:border-red-100 transition-all group">
+              /* Adjusted width and reduced horizontal padding from px-4 to px-2 */
+              <div key={course.id} className="w-full md:w-1/3 shrink-0 px-2">
+                <div className="bg-white rounded-xl overflow-hidden shadow-md border border-slate-100 hover:border-red-100 transition-all group">
+                  {/* 1. Shorter Image Height (h-40 instead of h-52) */}
                   <Link
                     to={`/course/${course.id}`}
-                    className="block relative h-52 overflow-hidden"
+                    className="block relative h-40 overflow-hidden"
                   >
                     <img
                       src={course.img}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       alt={course.title}
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
 
-                  <div className="p-8">
-                    <div className="flex text-yellow-500 mb-4 text-xs font-bold">
+                  {/* 2. Reduced Padding (p-5 instead of p-8) */}
+                  <div className="p-5">
+                    <div className="flex text-yellow-500 mb-2 text-[10px] font-bold">
                       ★★★★★{' '}
-                      <span className="text-gray-400 ml-2">(15+ Reviews)</span>
+                      <span className="text-gray-400 ml-1 font-medium">
+                        (15+)
+                      </span>
                     </div>
 
                     <Link to={`/course/${course.id}`}>
-                      <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-red-600 transition-colors">
+                      <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-red-600 transition-colors leading-tight">
                         {course.title}
                       </h3>
                     </Link>
 
-                    <p className="text-gray-600 text-sm leading-relaxed mb-8 h-12 overflow-hidden">
+                    {/* 3. Reduced Text height and margin */}
+                    <p className="text-gray-500 text-xs leading-snug mb-4 h-9 overflow-hidden">
                       {course.desc}
                     </p>
 
-                    <div className="pt-6 border-t border-gray-100 flex justify-between items-center text-gray-400 text-sm">
-                      <div className="flex gap-4">
-                        <span>👥 45 Students</span>
-                        <span>❤️ 12</span>
+                    {/* 4. Compact Footer */}
+                    <div className="pt-4 border-t border-gray-50 flex justify-between items-center text-gray-400 text-[11px]">
+                      <div className="flex gap-3">
+                        <span className="flex items-center gap-1">👥 45</span>
+                        <span className="flex items-center gap-1">❤️ 12</span>
                       </div>
                       <Link
                         to={`/course/${course.id}`}
-                        className="font-bold text-red-600 hover:underline"
+                        className="font-bold text-red-600 hover:underline py-1 px-2 bg-red-50 rounded-md"
                       >
                         Details
                       </Link>
