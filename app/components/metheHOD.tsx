@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import HOD from '../Assets/HOD.png';
 
 export default function MeetTheHOD() {
   return (
@@ -16,18 +17,18 @@ export default function MeetTheHOD() {
             {/* Decorative Background Element */}
             <div className="absolute -inset-4 bg-blue-600/10 rounded-2xl -rotate-3 group-hover:rotate-0 transition-transform duration-500" />
 
-            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
+            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 md:border-8 border-white">
               <img
-                src={''} // Replace with actual HOD image
+                src={HOD}
                 alt="Head of Department"
-                className="w-full h-125 object-cover object-top scale-105 group-hover:scale-100 transition-transform duration-700"
+                className="w-full h-72 sm:h-96 md:h-125 object-cover object-top scale-105 group-hover:scale-100 transition-transform duration-700"
               />
               {/* Overlay Label */}
-              <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-blue-900 to-transparent p-8">
-                <p className="text-white/80 text-sm font-bold tracking-widest uppercase">
+              <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-blue-900/90 to-transparent p-4 md:p-8">
+                <p className="text-white/80 text-[10px] md:text-sm font-bold tracking-widest uppercase">
                   Departmental Leadership
                 </p>
-                <h3 className="text-white text-2xl font-black">
+                <h3 className="text-white text-lg md:text-2xl font-black">
                   Prof. Dr. Chen Kwesi
                 </h3>
               </div>
