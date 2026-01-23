@@ -587,7 +587,7 @@ export default function Navbar() {
                         <div className="absolute bottom-6 right-8 flex gap-2">
                           <button
                             disabled={(sliderIndices[item.name] || 0) === 0}
-                            onClick={() => handelPrev(item.name)} // Ensure handlePrev is defined in your state logic
+                            onClick={() => handelPrev(item.name)}
                             className="w-10 h-10 border border-blue-500 flex items-center justify-center rounded hover:bg-blue-500 disabled:opacity-20 disabled:cursor-not-allowed transition-all"
                           >
                             &larr;
@@ -635,52 +635,92 @@ export default function Navbar() {
         </nav>
 
         {/* 3. MOBILE SIDEBAR */}
-        {/* Overlay */}
+        {/* Overlay: Handles click-anywhere-outside to close */}
         <div
-          className={`fixed inset-0 bg-black/50 z-60transition-opacity duration-300 ${isDrawerOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-          onClick={() => setIsDrawerOpen(false)}
+          className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] transition-opacity duration-300 ${
+            isDrawerOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+          onClick={() => setIsDrawerOpen(false)} // Closes when clicking outside
         />
 
         {/* Panel */}
         <div
-          className={`fixed top-0 right-0 h-full w-70 bg-linear-to-b from-[#000a4d] to-[#001489] z-70 
-          shadow-2xl transform transition-transform duration-300 ${
-            isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
-          } overflow-y-auto`}
+          className={`fixed top-0 right-0 h-full w-72 bg-gradient-to-b from-[#000a4d] to-[#001489] z-[70] 
+  shadow-2xl transform transition-transform duration-300 ease-in-out ${
+    isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
+  } overflow-y-auto flex flex-col`}
         >
-          <div className="flex justify-center p-4 border-b border-white/10">
-            <button
-              onClick={() => setIsDrawerOpen(false)}
-              className="text-white text-3xl"
-            >
-              ×
-            </button>
+          {/* Header with Close Button & Static Links */}
+          <div className="flex flex-col border-b border-white/10 bg-black/10">
+            <div className="flex justify-end p-4">
+              <button
+                onClick={() => setIsDrawerOpen(false)} // X button closes sidebar
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            {/* Static Top Links: About & Contact */}
+            <div className="flex flex-col px-4 pb-4 gap-2">
+              <NavLink
+                to="/about"
+                onClick={() => setIsDrawerOpen(false)}
+                className="text-white/80 hover:text-yellow-400 font-bold text-xs uppercase tracking-widest px-3 py-2 rounded-lg hover:bg-white/5 transition-all"
+              >
+                About Us
+              </NavLink>
+              <NavLink
+                to="/contact"
+                onClick={() => setIsDrawerOpen(false)}
+                className="text-white/80 hover:text-yellow-400 font-bold text-xs uppercase tracking-widest px-3 py-2 rounded-lg hover:bg-white/5 transition-all"
+              >
+                Contact Us
+              </NavLink>
+            </div>
           </div>
 
+          {/* Main NavLinks Array */}
           <div className="flex flex-col text-white px-2 py-4">
             {navLinks.map((item, index) => (
-              <div key={index} className="border-b border-white/5">
-                <div className="flex justify-between items-center py-3 px-4 hover:bg-white/5">
+              <div
+                key={index}
+                className="border-b border-white/5 last:border-0"
+              >
+                <div className="flex justify-between items-center hover:bg-white/5 rounded-lg transition-all">
                   <NavLink
                     to={item.path}
                     onClick={() => setIsDrawerOpen(false)}
                     className={({ isActive }) =>
-                      `flex-1 font-bold text-[13px]  text-sm uppercase p-3 transition-all ${
+                      `flex-1 font-bold text-[13px] uppercase p-4 transition-all ${
                         isActive
                           ? 'text-yellow-400 border-l-4 border-yellow-400 bg-white/10'
-                          : 'text-white hover:bg-white/5'
+                          : 'text-white'
                       }`
                     }
                   >
                     {item.name}
                   </NavLink>
+
                   {item.links.length > 0 && (
                     <button
                       onClick={() => toggleDropdown(index)}
-                      className="p-2"
+                      className="p-4 text-white/40 hover:text-white"
                     >
                       <svg
-                        className={`w-4 h-4 transition-transform ${openDropdown === index ? 'rotate-180' : ''}`}
+                        className={`w-4 h-4 transition-transform duration-300 ${openDropdown === index ? 'rotate-180' : ''}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -698,58 +738,49 @@ export default function Navbar() {
 
                 {/* Accordion Content */}
                 {item.links.length > 0 && openDropdown === index && (
-                  <div className="bg-black/20 flex flex-col">
+                  <div className="bg-black/20 flex flex-col my-1 rounded-lg">
                     {item.links.map((sub, i) => (
                       <NavLink
                         key={i}
                         to="/"
                         onClick={(e) => {
                           e.preventDefault();
-                          alert(
-                            `${sub.text} is still under development please bear with us!`,
-                          );
+                          alert(`${sub.text} is still under development!`);
                           setIsDrawerOpen(false);
                         }}
-                        className="py-3 px-8 text-[11px] border-b border-white/5"
+                        className="py-3 px-8 text-[11px] text-white/70 hover:text-white hover:bg-white/5 border-b border-white/5 last:border-0"
                       >
-                        {sub.text}
-                        {sub.label && (
-                          <span
-                            className={`ml-2 ${sub.labelColor || 'bg-blue-600'} text-[8px] px-1 py-0.5 rounded`}
-                          >
-                            {sub.label}
-                          </span>
-                        )}
+                        • {sub.text}
                       </NavLink>
                     ))}
                   </div>
                 )}
               </div>
             ))}
+          </div>
 
-            <div className="mt-auto pt-8 pb-10 px-6">
-              {/* Search Input */}
-              <div className="relative group">
-                <input
-                  type="text"
-                  placeholder="Search ..."
-                  className="w-full bg-[#000d33] border border-blue-500/30 rounded-full py-2.5 px-5 text-sm focus:outline-none focus:border-blue-500 transition-all text-white placeholder:text-gray-500"
-                />
-                <button className="absolute right-4 top-3 text-blue-400 group-focus-within:text-white transition-colors">
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="3"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                </button>
+          {/* Bottom Search Section */}
+          <div className="mt-auto p-6 bg-black/20">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Quick search..."
+                className="w-full bg-[#000d33] border border-blue-500/30 rounded-full py-2.5 px-5 text-sm focus:outline-none focus:border-blue-500 transition-all text-white placeholder:text-gray-500"
+              />
+              <div className="absolute right-4 top-3 text-blue-400">
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="3"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
               </div>
             </div>
           </div>
