@@ -16,6 +16,7 @@ import { Link } from 'react-router';
 import FeaturedLecturers from '~/components/lectures';
 import MeetTheHOD from '~/components/metheHOD';
 import CourseCurriculum from '~/components/courses';
+import PresidentPortfolio from '~/components/DetpPresident';
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -27,21 +28,18 @@ export default function Home() {
     }
   }, [currentIndex]);
 
-  // Logic to move to previous slide
   const prevSlide = () => {
     if (currentIndex > 0) {
       setCurrentIndex((prev) => prev - 1);
     }
   };
 
-  // Auto-play every 5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      // Only auto-advance if we aren't at the last slide
       if (currentIndex < slides.length - 1) {
         nextSlide();
       } else {
-        clearInterval(timer); // Stop auto-play at the end
+        clearInterval(timer);
       }
     }, 5000);
 
@@ -127,6 +125,7 @@ export default function Home() {
       </section>
       <FeaturedLecturers />
       <MeetTheHOD />
+      <PresidentPortfolio />
       <CourseCurriculum />
     </>
   );

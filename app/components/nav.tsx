@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { navLinks } from '~/lib/Navlinks';
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -58,6 +59,18 @@ export default function Navbar() {
     return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
   };
 
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const previous = scrollY.getPrevious() || 0;
+
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
   useEffect(() => {
     const handleSize = () => {
       // checking if window width changes
@@ -71,349 +84,6 @@ export default function Navbar() {
     // cleaning up the event listener when the component unmount
     return () => window.removeEventListener('resize', handleSize);
   });
-  // const navLinks = [
-  //   {
-  //     name: 'Home',
-  //     path: '/',
-  //     links: [],
-  //   },
-  //   {
-  //     name: 'Tutorial',
-  //     path: '/Tutorial',
-  //     links: [],
-  //   },
-  //   {
-  //     name: 'Electrical Wiring',
-  //     path: '/electrical-wiring',
-  //     featuredImage: '/final year student.jpg',
-  //     featuredTitle:
-  //       'How to Wire a Single-Pole GFCI Breaker in a 120/240V Panel',
-  //     links: [
-  //       {
-  //         text: 'Home Electrical Wiring',
-  //         label: 'TRENDING',
-  //         labelColor: 'bg-red-600',
-  //       },
-  //       { text: 'UPS / Inverter Wiring Diagrams', label: '', labelColor: '' },
-  //       {
-  //         text: 'Solar Panels Installation',
-  //         label: 'HOT',
-  //         labelColor: 'bg-blue-600',
-  //       },
-  //       { text: 'Batteries Wiring Diagrams', label: '', labelColor: '' },
-  //       { text: '1 Phase & 3 Phase Wiring', label: '', labelColor: '' },
-  //       { text: 'Power & Control Wiring', label: '', labelColor: '' },
-  //     ],
-  //     sidePosts: [
-  //       {
-  //         title: 'How to Wire a 3-Phase, 3-Pole Breaker...',
-  //         thumb: '/final year student.jpg',
-  //       },
-  //       {
-  //         title: 'How to Wire a Two-Pole Circuit Breaker...',
-  //         thumb: '/final year student.jpg',
-  //       },
-  //       {
-  //         title: 'How to Wire a Single-Pole Circuit Breaker...',
-  //         thumb: '/final year student.jpg',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: 'EE Essentials',
-  //     path: '/ee-essentials',
-  //     links: [
-  //       { text: 'Basics', label: '', labelColor: 'bg-blue-600' },
-  //       { text: 'Theory', label: '' },
-  //     ],
-  //   },
-  //   {
-  //     name: 'Basics',
-  //     path: '/basics',
-  //     links: [{ text: 'Graphics', label: '' }],
-  //   },
-  //   {
-  //     name: 'Machines',
-  //     path: '/machines',
-  //     links: [
-  //       { text: 'Power', label: '' },
-  //       { text: 'Control', label: '' },
-  //     ],
-  //   },
-  //   {
-  //     name: 'Power',
-  //     path: '/power',
-  //     links: [{ text: 'Generation', label: '' }],
-  //   },
-  //   {
-  //     name: 'Control',
-  //     path: '/control',
-  //     links: [{ text: 'Logic', label: '' }],
-  //   },
-  //   {
-  //     name: 'Electronics',
-  //     path: '/electronics',
-  //     links: [{ text: 'Circuits', label: '' }],
-  //   },
-  // ];
-
-  const navLinks = [
-    { name: 'Home', path: '/', links: [] },
-    { name: 'Tutorial', path: '/Tutorial', links: [] },
-    {
-      name: 'Electrical Wiring',
-      path: '/electrical-wiring',
-      links: [
-        {
-          text: 'Home Electrical Wiring',
-          label: 'TRENDING',
-          labelColor: 'bg-red-600',
-        },
-        {
-          text: 'Solar Panels Installation',
-          label: 'HOT',
-          labelColor: 'bg-blue-600',
-        },
-        { text: '1 Phase & 3 Phase Wiring', label: '' },
-      ],
-      // Structured for slider
-      content: [
-        {
-          image: '/final year student.jpg',
-          title: 'How to Wire a Single-Pole GFCI Breaker in a 120/240V Panel',
-          sidePosts: [
-            {
-              title: '3-Phase Breaker Wiring...',
-              thumb: '/final year student.jpg',
-            },
-            {
-              title: 'Two-Pole Circuit Breaker...',
-              thumb: '/final year student.jpg',
-            },
-          ],
-        },
-        {
-          image: '/solar-install.jpg',
-          title: 'Advanced Solar Grid-Tie Inverter Setup Guide',
-          sidePosts: [
-            { title: 'Battery Bank Series Wiring', thumb: '/battery.jpg' },
-            { title: 'Charge Controller Settings', thumb: '/controller.jpg' },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'EE-Essentials',
-      path: '/ee-essentials',
-      links: [
-        { text: 'How to', label: 'HOT', labelColor: 'bg-red-600' },
-        { text: 'EE Calculators', label: '' },
-        { text: 'EEE projects', label: 'NEW', labelColor: 'bg-green-600' },
-
-        { text: 'EE Q & A', label: '' },
-        { text: 'EE MCQS', label: '' },
-
-        { text: 'EE  Notes and Article', label: '' },
-        { text: 'Circuit Analysis', label: '' },
-        { text: 'EE symbols', label: 'NEW', labelColor: 'bg-green-600' },
-      ],
-      content: [
-        {
-          image: '/electronics-1.jpg',
-          title: 'How to wire a  GFCI Breaker in a 120/240V panel',
-          sidePosts: [
-            {
-              title: 'Difference Between Zener & Avalanche',
-              thumb: '/diode.jpg',
-            },
-            { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-            { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
-          ],
-        },
-        {
-          image: '/logic-gates.jpg',
-          title: 'Mastering Boolean Algebra for Digital Logic Design',
-          sidePosts: [
-            { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-            { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-            { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Basic',
-      path: '/basics',
-      links: [
-        {
-          text: 'Basics concept',
-          label: 'MUST KNOW',
-          labelColor: ' bg-purple-900',
-        },
-        { text: 'Electrical fundamentals', label: '' },
-        { text: 'AC fundamental', label: 'NEW', labelColor: '' },
-        { text: 'Alternating current', label: '' },
-        { text: 'Formulas and Equations', label: '' },
-        { text: 'Electrical wiring', label: '' },
-        { text: 'Question and answer', label: '' },
-      ],
-      content: [
-        {
-          image: '/electronics-1.jpg',
-          title: 'LED Light Bulb Circuit – 230V / 120V Mains Operated LEDs',
-          sidePosts: [
-            {
-              title: 'Difference Between Zener & Avalanche',
-              thumb: '/diode.jpg',
-            },
-            { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-            { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
-          ],
-        },
-        {
-          image: '/logic-gates.jpg',
-          title: 'Mastering Boolean Algebra for Digital Logic Design',
-          sidePosts: [
-            { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-            { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-            { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Control',
-      path: '/control',
-      links: [
-        { text: 'All', label: '' },
-        { text: 'Basic Electronics', label: '' },
-        { text: 'Logic Gates', label: 'NEW', labelColor: 'bg-green-600' },
-        { text: 'Diodes & LEDs', label: '' },
-      ],
-      content: [
-        {
-          image: '/electronics-1.jpg',
-          title: 'LED Light Bulb Circuit – 230V / 120V Mains Operated LEDs',
-          sidePosts: [
-            {
-              title: 'Difference Between Zener & Avalanche',
-              thumb: '/diode.jpg',
-            },
-            { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-            { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
-          ],
-        },
-        {
-          image: '/logic-gates.jpg',
-          title: 'Mastering Boolean Algebra for Digital Logic Design',
-          sidePosts: [
-            { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-            { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-            { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Machines',
-      path: '/machines',
-      links: [
-        { text: 'All', label: '' },
-        { text: 'Basic Electronics', label: '' },
-        { text: 'Logic Gates', label: 'NEW', labelColor: 'bg-green-600' },
-        { text: 'Diodes & LEDs', label: '' },
-      ],
-      content: [
-        {
-          image: '/electronics-1.jpg',
-          title: 'LED Light Bulb Circuit – 230V / 120V Mains Operated LEDs',
-          sidePosts: [
-            {
-              title: 'Difference Between Zener & Avalanche',
-              thumb: '/diode.jpg',
-            },
-            { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-            { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
-          ],
-        },
-        {
-          image: '/logic-gates.jpg',
-          title: 'Mastering Boolean Algebra for Digital Logic Design',
-          sidePosts: [
-            { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-            { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-            { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Power',
-      path: '/Power',
-      links: [
-        { text: 'All', label: '' },
-        { text: 'Basic Electronics', label: '' },
-        { text: 'Logic Gates', label: 'NEW', labelColor: 'bg-green-600' },
-        { text: 'Diodes & LEDs', label: '' },
-      ],
-      content: [
-        {
-          image: '/electronics-1.jpg',
-          title: 'LED Light Bulb Circuit – 230V / 120V Mains Operated LEDs',
-          sidePosts: [
-            {
-              title: 'Difference Between Zener & Avalanche',
-              thumb: '/diode.jpg',
-            },
-            { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-            { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
-          ],
-        },
-        {
-          image: '/logic-gates.jpg',
-          title: 'Mastering Boolean Algebra for Digital Logic Design',
-          sidePosts: [
-            { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-            { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-            { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Electronics',
-      path: '/electronics',
-      links: [
-        { text: 'All', label: '' },
-        { text: 'Basic Electronics', label: '' },
-        { text: 'Logic Gates', label: 'NEW', labelColor: 'bg-green-600' },
-        { text: 'Diodes & LEDs', label: '' },
-      ],
-      content: [
-        {
-          image: '/electronics-1.jpg',
-          title: 'LED Light Bulb Circuit – 230V / 120V Mains Operated LEDs',
-          sidePosts: [
-            {
-              title: 'Difference Between Zener & Avalanche',
-              thumb: '/diode.jpg',
-            },
-            { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-            { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
-          ],
-        },
-        {
-          image: '/logic-gates.jpg',
-          title: 'Mastering Boolean Algebra for Digital Logic Design',
-          sidePosts: [
-            { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-            { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-            { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
-          ],
-        },
-      ],
-    },
-  ];
 
   const message = 'Join Our  WhatsApp Channel to Get Latest Updates.';
 
@@ -456,11 +126,10 @@ export default function Navbar() {
               View Courses
             </Link>
 
-            {/* OTHER LINKS: Hidden on mobile (hidden), shown on tablet/desktop (md:block) */}
             <Link
               to="/advert"
               onClick={(e) => {
-                e.preventDefault(); // This stops the navigation
+                e.preventDefault();
                 alert('still in development!');
               }}
               className="hidden md:block hover:text-blue-700 transition"
@@ -483,7 +152,15 @@ export default function Navbar() {
         </div>
 
         {/* 2. MAIN NAV BAR */}
-        <nav className="bg-linear-to-r from-blue-800 to-blue-950 text-white px-4 flex justify-between items-center relative">
+        <motion.nav
+          className="bg-linear-to-r from-blue-800 to-blue-950 text-white px-4 flex justify-between items-center relative top-0 left-0 right-0 z-50"
+          variants={{
+            visible: { y: 0 },
+            hidden: { y: '-100%' },
+          }}
+          animate={hidden ? 'hidden' : 'visible'}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+        >
           <div className="flex items-center">
             <Link to="/" className="text-white text-2xl font-bold p-3">
               NDU EEE
@@ -632,7 +309,7 @@ export default function Navbar() {
               />
             </svg>
           </button>
-        </nav>
+        </motion.nav>
 
         {/* 3. MOBILE SIDEBAR */}
         {/* Overlay: Handles click-anywhere-outside to close */}

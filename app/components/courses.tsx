@@ -1,268 +1,170 @@
-import { useState } from 'react';
-import { Link } from 'react-router';
-
-const courseData = [
-  {
-    level: '100 Level',
-    courses: [
-      {
-        id: 'gen-math',
-        title: 'General Mathematics I & II',
-        desc: 'Foundational calculus and algebra for engineering applications.',
-        img: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=800',
-      },
-      {
-        id: 'gen-phys',
-        title: 'General Physics I & II',
-        desc: 'Mechanics, waves, and thermal physics essentials.',
-        img: '',
-      },
-      {
-        id: 'gen-chem',
-        title: 'General CHM I & II',
-        desc: 'Covers atomic structure, chemical bonding, states of matter, stoichiometry, and basic thermodynamics.',
-        img: '',
-      },
-      {
-        id: 'eng-draw',
-        title: 'Engineering Drawing I',
-        desc: 'Technical sketching and introduction to CAD standards.',
-        img: '',
-      },
-      {
-        id: 'Us-eng',
-        title: 'Use of english',
-        des: 'Focuses on developing communication skills, including grammar, essay writing, reading comprehension, and effective study techniques.',
-      },
-    ],
-  },
-  {
-    level: '200 Level',
-    courses: [
-      {
-        id: 'app-elec',
-        title: 'Applied Electricity I & II',
-        desc: 'Fundamental principles of electrical circuits and components.',
-        img: 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?q=80&w=800',
-      },
-      {
-        id: 'thermo',
-        title: 'Thermodynamics',
-        desc: 'Energy conversion, heat transfer, and system laws.',
-        img: 'https://images.unsplash.com/photo-1581092162384-8987c1d64718?q=80&w=800',
-      },
-      {
-        id: 'mat-sci',
-        title: 'Materials Science',
-        desc: 'Properties and applications of engineering materials.',
-        img: 'https://images.unsplash.com/photo-1532187875605-1ef6c237a1e1?q=80&w=800',
-      },
-    ],
-  },
-  {
-    level: '300 Level',
-    courses: [
-      {
-        id: 'circ-theory',
-        title: 'Circuit Theory I & II',
-        desc: 'Advanced network analysis and frequency response.',
-        img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800',
-      },
-      {
-        id: 'elec-mach',
-        title: 'Electrical Machines I & II',
-        desc: 'Operational principles of Transformers, DC, and AC motors.',
-        img: '',
-      },
-      {
-        id: 'dig-elec',
-        title: 'Digital Electronics',
-        desc: 'Logic gates, flip-flops, and combinational circuit design.',
-        img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800',
-      },
-    ],
-  },
-  {
-    level: '400 Level',
-    courses: [
-      {
-        id: 'circ-theory',
-        title: 'Circuit Theory I & II',
-        desc: 'Advanced network analysis and frequency response.',
-        img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800',
-      },
-      {
-        id: 'elec-mach',
-        title: 'Electrical Machines I & II',
-        desc: 'Operational principles of Transformers, DC, and AC motors.',
-        img: '',
-      },
-      {
-        id: 'dig-elec',
-        title: 'Digital Electronics',
-        desc: 'Logic gates, flip-flops, and combinational circuit design.',
-        img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800',
-      },
-    ],
-  },
-  {
-    level: '500 Level',
-    courses: [
-      {
-        id: 'circ-theory',
-        title: 'Circuit Theory I & II',
-        desc: 'Advanced network analysis and frequency response.',
-        img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800',
-      },
-      {
-        id: 'elec-mach',
-        title: 'Electrical Machines I & II',
-        desc: 'Operational principles of Transformers, DC, and AC motors.',
-        img: '',
-      },
-      {
-        id: 'dig-elec',
-        title: 'Digital Electronics',
-        desc: 'Logic gates, flip-flops, and combinational circuit design.',
-        img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800',
-      },
-    ],
-  },
-  // Add 400L and 500L following the same pattern...
-];
+import { useState, useRef } from 'react';
+import { Link } from 'react-router'; // or 'react-router-dom'
+import { motion } from 'framer-motion';
+import { courseData } from '~/lib/courseData';
 
 export default function CourseCurriculum() {
   const [activeLevel, setActiveLevel] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollRef = useRef(null);
 
   const currentLevelData = courseData[activeLevel].courses;
-  const itemsPerPage = 3;
-  const maxIndex = currentLevelData.length - itemsPerPage;
 
-  const nextSlide = () => {
-    if (currentIndex < maxIndex) setCurrentIndex((prev) => prev + 1);
-  };
+  // Scroll function for the buttons
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo =
+        direction === 'left'
+          ? scrollLeft - clientWidth
+          : scrollLeft + clientWidth;
 
-  const prevSlide = () => {
-    if (currentIndex > 0) setCurrentIndex((prev) => prev - 1);
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
   };
 
   const handleLevelChange = (index) => {
     setActiveLevel(index);
-    setCurrentIndex(0); // Reset slider when changing levels
+    // Reset scroll position to start when level changes
+    if (scrollRef.current) scrollRef.current.scrollLeft = 0;
   };
 
   return (
-    <section className="py-20 px-6 bg-[#f8f9fa]">
+    <section className="py-20 px-6 bg-[#f8f9fa] overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        {/* Header and Level Selector */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-          <div>
-            <span className="text-red-600 font-bold tracking-widest uppercase text-sm">
+        {/* HEADER SECTION */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <span className="text-red-600 font-bold tracking-widest uppercase text-sm px-1 border-l-4 border-red-600 ml-1">
               Curriculum
             </span>
-            <h2 className="text-4xl font-black text-slate-900 mt-2">
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mt-2">
               Departmental Courses
             </h2>
+          </motion.div>
+
+          {/* LEVEL SELECTOR */}
+          <div className="bg-white p-1 rounded-xl shadow-sm border border-gray-200 w-full md:max-w-2xl">
+            <div className="grid grid-cols-5 gap-1">
+              {courseData.map((data, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleLevelChange(i)}
+                  className={`py-2 text-[10px] xs:text-xs md:text-sm rounded-lg font-bold transition-all duration-300 text-center flex items-center justify-center ${
+                    activeLevel === i
+                      ? 'bg-red-600 text-white shadow-md'
+                      : 'text-gray-500 hover:bg-gray-50 hover:text-red-600'
+                  }`}
+                >
+                  <span className="hidden sm:inline">{data.level}</span>
+                  <span className="sm:hidden">
+                    {data.level.replace(' Level', 'L')}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="flex bg-white p-1 rounded-lg shadow-sm border border-gray-200">
-            {courseData.map((data, i) => (
-              <button
-                key={i}
-                onClick={() => handleLevelChange(i)}
-                className={`px-4 py-2 rounded-md text-sm cursor-pointer font-bold transition-all ${
-                  activeLevel === i
-                    ? 'bg-red-600 text-white'
-                    : 'text-gray-500 hover:text-red-600'
-                }`}
-              >
-                {data.level}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex gap-3">
+          <div className="hidden md:flex gap-3">
             <button
-              onClick={prevSlide}
-              disabled={currentIndex === 0}
-              className="w-12 h-12 flex items-center justify-center border-2 border-gray-200 rounded-full hover:border-red-600 hover:text-red-600 disabled:opacity-20 transition-all"
+              onClick={() => scroll('left')}
+              className="w-12 h-12 flex items-center justify-center border-2 border-gray-200 rounded-full hover:bg-white hover:border-red-600 hover:text-red-600 transition-all shadow-sm"
             >
-              &#10094;
+              <span className="text-xl">←</span>
             </button>
             <button
-              onClick={nextSlide}
-              disabled={currentIndex >= maxIndex}
-              className="w-12 h-12 flex items-center justify-center border-2 border-gray-200 rounded-full hover:border-red-600 hover:text-red-600 disabled:opacity-20 transition-all"
+              onClick={() => scroll('right')}
+              className="w-12 h-12 flex items-center justify-center border-2 border-gray-200 rounded-full hover:bg-white hover:border-red-600 hover:text-red-600 transition-all shadow-sm"
             >
-              &#10095;
+              <span className="text-xl">→</span>
             </button>
           </div>
         </div>
 
-        {/* Sliding Grid */}
-        <div className="overflow-hidden">
-          <div
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{
-              transform: `translateX(-${currentIndex * (100 / itemsPerPage)}%)`,
-            }}
-          >
-            {currentLevelData.map((course) => (
-              /* Adjusted width and reduced horizontal padding from px-4 to px-2 */
-              <div key={course.id} className="w-full md:w-1/3 shrink-0 px-2">
-                <div className="bg-white rounded-xl overflow-hidden shadow-md border border-slate-100 hover:border-red-100 transition-all group">
-                  {/* 1. Shorter Image Height (h-40 instead of h-52) */}
-                  <Link
-                    to={`/course/${course.id}`}
-                    className="block relative h-40 overflow-hidden"
-                  >
-                    <img
-                      src={course.img}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      alt={course.title}
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+        <div
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8 px-2"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {currentLevelData.map((course, index) => (
+            <motion.div
+              key={`${activeLevel}-${course.id}`}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.05 }}
+              className="min-w-[85%] md:min-w-[calc(33.333%-1rem)] snap-start snap-always"
+            >
+              <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl hover:shadow-red-500/5 transition-all duration-500 group h-full flex flex-col">
+                {/* Image Container */}
+                <Link
+                  to={`/course/${course.id}`}
+                  className="block relative h-52 overflow-hidden"
+                >
+                  <img
+                    src={
+                      course.img ||
+                      'https://images.unsplash.com/photo-1581092335397-9583ee92d03b?q=80&w=800'
+                    }
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                    alt={course.title}
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                  <div className="absolute bottom-4 left-4">
+                    <span className="bg-red-600 text-white text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter">
+                      Core Module
+                    </span>
+                  </div>
+                </Link>
+
+                <div className="p-6 flex flex-col grow">
+                  <div className="flex text-yellow-500 mb-3 text-xs">
+                    ★★★★★{' '}
+                    <span className="text-gray-400 ml-2 font-semibold tracking-tighter italic">
+                      Verified Curriculum
+                    </span>
+                  </div>
+
+                  <Link to={`/course/${course.id}`}>
+                    <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-red-600 transition-colors">
+                      {course.title}
+                    </h3>
                   </Link>
 
-                  {/* 2. Reduced Padding (p-5 instead of p-8) */}
-                  <div className="p-5">
-                    <div className="flex text-yellow-500 mb-2 text-[10px] font-bold">
-                      ★★★★★{' '}
-                      <span className="text-gray-400 ml-1 font-medium">
-                        (15+)
+                  <p className="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-2">
+                    {course.desc}
+                  </p>
+
+                  <div className="mt-auto pt-6 border-t border-slate-50 flex justify-between items-center">
+                    <div className="flex -space-x-2">
+                      {[1, 2, 3].map((i) => (
+                        <div
+                          key={i}
+                          className="w-7 h-7 rounded-full border-2 border-white bg-slate-200 overflow-hidden"
+                        >
+                          <img
+                            src={`https://i.pravatar.cc/100?img=${i + 10}`}
+                            alt="student"
+                          />
+                        </div>
+                      ))}
+                      <span className="pl-4 text-[11px] text-slate-400 font-bold self-center">
+                        +80 Students
                       </span>
                     </div>
 
-                    <Link to={`/course/${course.id}`}>
-                      <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-red-600 transition-colors leading-tight">
-                        {course.title}
-                      </h3>
+                    <Link
+                      to={`/course/${course.id}`}
+                      className="bg-slate-900 text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-red-600 hover:shadow-lg hover:shadow-red-200 transition-all active:scale-95"
+                    >
+                      View Syllabus
                     </Link>
-
-                    {/* 3. Reduced Text height and margin */}
-                    <p className="text-gray-500 text-xs leading-snug mb-4 h-9 overflow-hidden">
-                      {course.desc}
-                    </p>
-
-                    {/* 4. Compact Footer */}
-                    <div className="pt-4 border-t border-gray-50 flex justify-between items-center text-gray-400 text-[11px]">
-                      <div className="flex gap-3">
-                        <span className="flex items-center gap-1">👥 45</span>
-                        <span className="flex items-center gap-1">❤️ 12</span>
-                      </div>
-                      <Link
-                        to={`/course/${course.id}`}
-                        className="font-bold text-red-600 hover:underline py-1 px-2 bg-red-50 rounded-md"
-                      >
-                        Details
-                      </Link>
-                    </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
