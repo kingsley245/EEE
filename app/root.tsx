@@ -11,6 +11,7 @@ import type { Route } from './+types/root';
 import './app.css';
 import Footer from './components/footer';
 import Navbar from './components/nav';
+import BackToTop from './components/Animate';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -49,6 +50,7 @@ export default function App() {
       <Navbar />
       <Outlet />;
       <Footer />
+      <BackToTop />
     </main>
   );
 }
