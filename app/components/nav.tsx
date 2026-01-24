@@ -637,7 +637,7 @@ export default function Navbar() {
         {/* 3. MOBILE SIDEBAR */}
         {/* Overlay: Handles click-anywhere-outside to close */}
         <div
-          className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] transition-opacity duration-300 ${
+          className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-60 transition-opacity duration-300 ${
             isDrawerOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
           onClick={() => setIsDrawerOpen(false)} // Closes when clicking outside
@@ -645,7 +645,7 @@ export default function Navbar() {
 
         {/* Panel */}
         <div
-          className={`fixed top-0 right-0 h-full w-72 bg-gradient-to-b from-[#000a4d] to-[#001489] z-[70] 
+          className={`fixed top-0 right-0 h-full w-72 bg-linear-to-b from-[#000a4d] to-[#001489] z-70 
   shadow-2xl transform transition-transform duration-300 ease-in-out ${
     isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
   } overflow-y-auto flex flex-col`}
