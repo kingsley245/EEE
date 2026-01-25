@@ -88,7 +88,7 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', handleSize);
   });
 
-  const message = 'Join Our Channel to Get Latest Updates.';
+  const message = 'I love Electrical $ electronics';
 
   return (
     <>
@@ -119,18 +119,14 @@ export default function Navbar() {
           {/* The right side container */}
           <div className="flex items-center space-x-3 md:space-x-4 text-xs font-semibold text-gray-600">
             <Link
-              to="/Courses"
-              onClick={(e) => {
-                e.preventDefault();
-                alert('still in development');
-              }}
+              to="/register"
               className="bg-blue-700 md:bg-linear-to-r md:from-blue-700 md:to-blue-900 text-white rounded px-2 py-1 md:p-2 text-[9px] md:text-xs shrink-0 inline-block"
             >
               Register
             </Link>
 
             <Link
-              to="/advert"
+              to="/login"
               onClick={(e) => {
                 e.preventDefault();
                 alert('still in development!');

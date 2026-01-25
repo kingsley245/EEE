@@ -4,6 +4,8 @@ export default [
   index('routes/home.tsx'),
   route('/electronics', 'routes/Electronics/route.tsx'),
   route('/about', 'components/About.tsx'),
+  route('/register', 'components/register.tsx'),
+  route('/login', 'components/login.tsx'),
   route('/contact', 'components/contactUs.tsx'),
   route('/Tutorial', 'routes/Tutorial/route.tsx'),
   route('/basics', 'routes/Basics/route.tsx'),
