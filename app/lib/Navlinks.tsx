@@ -60,24 +60,25 @@ export const navLinks = [
     ],
     content: [
       {
-        image: '/electronics-1.jpg',
-        title: 'How to wire a  GFCI Breaker in a 120/240V panel',
+        image: '/final year student.jpg',
+        title: 'How to Wire a Single-Pole GFCI Breaker in a 120/240V Panel',
         sidePosts: [
           {
-            title: 'Difference Between Zener & Avalanche',
-            thumb: '/diode.jpg',
+            title: '3-Phase Breaker Wiring...',
+            thumb: '/final year student.jpg',
           },
-          { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-          { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
+          {
+            title: 'Two-Pole Circuit Breaker...',
+            thumb: '/final year student.jpg',
+          },
         ],
       },
       {
-        image: '/logic-gates.jpg',
-        title: 'Mastering Boolean Algebra for Digital Logic Design',
+        image: '/solar-install.jpg',
+        title: 'Advanced Solar Grid-Tie Inverter Setup Guide',
         sidePosts: [
-          { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-          { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-          { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
+          { title: 'Battery Bank Series Wiring', thumb: '/battery.jpg' },
+          { title: 'Charge Controller Settings', thumb: '/controller.jpg' },
         ],
       },
     ],

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { navLinks } from '~/lib/Navlinks';
+import { AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -9,9 +10,9 @@ export default function Navbar() {
   useEffect(() => {
     const controlNavbar = () => {
       if (window.scrollY > lastScrollY && window.scrollY > 100) {
-        setIsVisible(false); // Hide when scrolling down
+        setIsVisible(false);
       } else {
-        setIsVisible(true); // Show when scrolling up
+        setIsVisible(true);
       }
       setLastScrollY(window.scrollY);
     };
@@ -38,14 +39,16 @@ export default function Navbar() {
   const handleNext = (navName: string, max: number) => {
     setSliderIndices((prev) => ({
       ...prev,
-      [navName]: Math.min(prev[navName] + 1, max),
+
+      [navName]: Math.min((prev[navName] || 0) + 1, max),
     }));
   };
 
   const handelPrev = (navName: string) => {
     setSliderIndices((prev) => ({
       ...prev,
-      [navName]: Math.max(prev[navName] - 1, 0),
+
+      [navName]: Math.max((prev[navName] || 0) - 1, 0),
     }));
   };
   // Helper function with proper spacing
@@ -78,14 +81,14 @@ export default function Navbar() {
         setIsDrawerOpen(false);
       }
     };
-    // setting up the event listener
+    // event listener
     window.addEventListener('resize', handleSize);
 
-    // cleaning up the event listener when the component unmount
+    // when unmount
     return () => window.removeEventListener('resize', handleSize);
   });
 
-  const message = 'Join Our  WhatsApp Channel to Get Latest Updates.';
+  const message = 'Join Our Channel to Get Latest Updates.';
 
   return (
     <>
@@ -123,7 +126,7 @@ export default function Navbar() {
               }}
               className="bg-blue-700 md:bg-linear-to-r md:from-blue-700 md:to-blue-900 text-white rounded px-2 py-1 md:p-2 text-[9px] md:text-xs shrink-0 inline-block"
             >
-              View Courses
+              Register
             </Link>
 
             <Link
@@ -132,9 +135,9 @@ export default function Navbar() {
                 e.preventDefault();
                 alert('still in development!');
               }}
-              className="hidden md:block hover:text-blue-700 transition"
+              className="bg-blue-700 md:bg-linear-to-r md:from-blue-700 md:to-blue-900 text-white rounded px-2 py-1 md:p-2 text-[9px] md:text-xs shrink-0 inline-block md:block hover:text-blue-700 transition"
             >
-              ADVERTISE
+              Login
             </Link>
             <Link
               to="/about"
@@ -217,48 +220,63 @@ export default function Navbar() {
                       </div>
 
                       {/* Featured Content Area (SLIDER) */}
-                      <div className="w-[75%] p-8 flex gap-8 relative bg-[#00144d]">
-                        {(() => {
-                          const currentIndex = sliderIndices[item.name] || 0;
-                          const currentSlide = item.content[currentIndex];
+                      <div className="w-[75%] p-8 flex gap-8 relative bg-[#00144d] overflow-hidden">
+                        <AnimatePresence mode="wait">
+                          {(() => {
+                            const currentIndex = sliderIndices[item.name] || 0;
+                            const currentSlide = item.content[currentIndex];
 
-                          if (!currentSlide) return null;
+                            if (!currentSlide) return null;
 
-                          return (
-                            <>
-                              <div className="w-[60%] animate-in fade-in duration-500">
-                                <div className="w-full aspect-video bg-gray-900 border border-blue-400/20 mb-4 overflow-hidden rounded">
-                                  <img
-                                    src={currentSlide.image}
-                                    className="w-full h-full object-cover"
-                                    alt="Featured"
-                                  />
-                                </div>
-                                <h3 className="text-xl font-bold leading-tight hover:text-blue-400 cursor-pointer">
-                                  {currentSlide.title}
-                                </h3>
-                              </div>
-
-                              <div className="w-[40%] flex flex-col gap-4">
-                                {currentSlide.sidePosts.map((post, pIdx) => (
-                                  <div
-                                    key={pIdx}
-                                    className="flex gap-3 group/post cursor-pointer border-b border-blue-900 pb-2"
-                                  >
+                            return (
+                              /* 2. Wrap the inner content in a motion.div */
+                              <motion.div
+                                key={`${item.name}-${currentIndex}`} // Unique key is the "trigger" for the slide
+                                initial={{ opacity: 0, x: 50 }} // Starts invisible and 50px to the right
+                                animate={{ opacity: 1, x: 0 }} // Slides into position
+                                exit={{ opacity: 0, x: -50 }} // Slides out to the left
+                                transition={{
+                                  duration: 0.4,
+                                  ease: 'easeInOut',
+                                }}
+                                className="flex w-full gap-8"
+                              >
+                                {/* Main Slide Content */}
+                                <div className="w-[60%]">
+                                  <div className="w-full aspect-video bg-gray-900 border border-blue-400/20 mb-4 overflow-hidden rounded">
                                     <img
-                                      src={post.thumb}
-                                      className="w-20 h-14 object-cover rounded border border-blue-400/20"
-                                      alt="thumb"
+                                      src={currentSlide.image}
+                                      className="w-full h-full object-cover"
+                                      alt="Featured"
                                     />
-                                    <p className="text-xs font-bold group-hover/post:text-blue-400">
-                                      {post.title}
-                                    </p>
                                   </div>
-                                ))}
-                              </div>
-                            </>
-                          );
-                        })()}
+                                  <h3 className="text-xl font-bold leading-tight hover:text-blue-400 cursor-pointer">
+                                    {currentSlide.title}
+                                  </h3>
+                                </div>
+
+                                {/* Side Posts */}
+                                <div className="w-[40%] flex flex-col gap-4">
+                                  {currentSlide.sidePosts.map((post, pIdx) => (
+                                    <div
+                                      key={pIdx}
+                                      className="flex gap-3 group/post cursor-pointer border-b border-blue-900 pb-2"
+                                    >
+                                      <img
+                                        src={post.thumb}
+                                        className="w-20 h-14 object-cover rounded border border-blue-400/20"
+                                        alt="thumb"
+                                      />
+                                      <p className="text-xs font-bold group-hover/post:text-blue-400">
+                                        {post.title}
+                                      </p>
+                                    </div>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            );
+                          })()}
+                        </AnimatePresence>
 
                         {/* SLIDER CONTROLS */}
                         <div className="absolute bottom-6 right-8 flex gap-2">

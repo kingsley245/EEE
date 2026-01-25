@@ -48,7 +48,7 @@ export default function App() {
   return (
     <main className="max-w-6xl mx-auto top-0 my-8">
       <Navbar />
-      <Outlet />;
+      <Outlet />
       <Footer />
       <BackToTop />
     </main>
