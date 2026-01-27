@@ -80,6 +80,13 @@ export default function Navbar() {
     return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
   };
 
+  // function to handle logout
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) console.error('Error logging out:', error.message);
+    // Optional: window.location.href = '/login';
+  };
+
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
 
@@ -139,24 +146,50 @@ export default function Navbar() {
             {/* Inside the Mobile Panel div */}
             <div className="p-6 border-b border-white/10">
               {user ? (
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center text-blue-900 font-black">
-                    {user.user_metadata?.full_name?.charAt(0) ||
-                      user.email?.charAt(0)}
+                <div className="flex items-center justify-between w-full bg-blue-900/40 p-3 rounded-2xl border border-white/10 backdrop-blur-md">
+                  <div className="flex items-center gap-4">
+                    {/* Avatar Circle */}
+                    <div className="w-12 h-12 bg-linear-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center text-blue-900 shadow-lg shadow-yellow-400/20">
+                      <span className="text-lg font-black uppercase">
+                        {user.user_metadata?.full_name?.charAt(0) ||
+                          user.email?.charAt(0)}
+                      </span>
+                    </div>
+
+                    {/* Text Info */}
+                    <div className="flex flex-col">
+                      <h2 className="text-white text-xs font-medium opacity-70 uppercase tracking-tighter">
+                        Welcome back,
+                      </h2>
+                      <p className="text-white font-bold text-base leading-tight">
+                        {user.user_metadata?.full_name || 'EEE Student'}
+                      </p>
+                      <span className="text-yellow-400 text-[10px] uppercase font-black tracking-widest mt-1">
+                        Level: {user.user_metadata?.level || 'N/A'}
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-white font-bold text-sm leading-tight">
-                      {user.user_metadata?.full_name || 'Student'}
-                    </p>
-                    <p className="text-white/50 text-[10px] uppercase font-black tracking-widest">
-                      {user.user_metadata?.level || 'No Level Set'}
-                    </p>
-                  </div>
+
+                  {/* Logout Button */}
+                  <button
+                    onClick={handleLogout}
+                    className="ml-4 px-4 py-2 bg-white/10 hover:bg-red-500/20 hover:text-red-400 text-white/70 text-xs font-bold uppercase tracking-widest rounded-lg border border-white/5 transition-all duration-300"
+                  >
+                    Logout
+                  </button>
                 </div>
               ) : (
-                <p className="text-black text-xl font-bold uppercase tracking-widest">
-                  Guest Mode
-                </p>
+                <div className="flex items-center justify-between w-full bg-black/10 p-4 rounded-xl">
+                  <p className="text-black/60 text-sm font-bold uppercase tracking-widest italic">
+                    Guest Mode
+                  </p>
+                  <a
+                    href="/login"
+                    className="text-blue-600 font-bold text-sm underline"
+                  >
+                    Login
+                  </a>
+                </div>
               )}
             </div>
           </div>
