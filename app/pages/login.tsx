@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Lock, LogIn, ArrowLeft, KeyRound } from 'lucide-react';
+import { Mail, Lock } from 'lucide-react';
 import { Link } from 'react-router';
 import { supabase } from '~/lib/supabase';
 import { AnimatePresence, motion } from 'framer-motion';

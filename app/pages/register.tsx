@@ -9,7 +9,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
-import { Link, Navigate, useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AnimatePresence, motion } from 'framer-motion';
 import { supabase } from '~/lib/supabase';
 export default function Register() {
