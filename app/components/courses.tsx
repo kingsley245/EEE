@@ -24,7 +24,7 @@ export default function CourseCurriculum() {
 
   const handleLevelChange = (index) => {
     setActiveLevel(index);
-    // Reset scroll position to start when level changes
+    // Reset scroll position to start when  the level changes
     if (scrollRef.current) scrollRef.current.scrollLeft = 0;
   };
 

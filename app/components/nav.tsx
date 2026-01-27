@@ -13,7 +13,7 @@ export default function Navbar() {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    // Check current user
+    // Checking current user
     supabase.auth.getUser().then(({ data }) => setUser(data.user));
 
     // Listen for changes
@@ -89,8 +89,8 @@ export default function Navbar() {
       localStorage.clear();
 
       window.location.replace('/');
-    } catch (error) {
-      console.error('Logout failed:', error.message);
+    } catch (err) {
+      console.error('Logout failed:', err);
 
       window.location.replace('/');
     }
@@ -126,7 +126,7 @@ export default function Navbar() {
   return (
     <>
       <header>
-        <div className="flex bg-white text-black text-[10px] md:text-1xl py-2 md:py-1 px-4 md:px-6 justify-between items-center border-b">
+        <div className="flex bg-white text-black  text-[10px] md:text-1xl py-2 md:py-1 px-4 md:px-6 justify-between items-center border-b">
           <div className="flex items-center">
             <span className="bg-red-500 text-white px-2 py-0.5 font-bold mr-2 md:mr-3 rounded animate-pulse shrink-0">
               Breaking News
@@ -151,53 +151,50 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center space-x-3 md:space-x-4 text-xs font-semibold text-gray-600">
-            {/* Inside the Mobile Panel div */}
-            <div className="p-6 border-b border-white/10">
+            <div className="p-4 border-b border-white/10">
               {user ? (
-                <div className="flex items-center justify-between w-full bg-blue-900/40 p-3 rounded-2xl border border-white/10 backdrop-blur-md">
-                  <div className="flex items-center gap-4">
-                    {/* Avatar Circle */}
-                    <div className="w-12 h-12 bg-linear-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center text-blue-900 shadow-lg shadow-yellow-400/20">
-                      <span className="text-lg font-black uppercase">
-                        {user.user_metadata?.full_name?.charAt(0) ||
-                          user.email?.charAt(0)}
-                      </span>
+                <div className="relative overflow-hidden group w-full bg-slate-900 p-5 rounded-3xl border border-white/10 shadow-2xl">
+                  <div className="absolute -top-10 -right-10 w-24 h-24 bg-yellow-400/10 blur-3xl rounded-full"></div>
+
+                  <div className="relative flex flex-col gap-5">
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 shrink-0 bg-yellow-400 rounded-2xl flex items-center justify-center text-slate-900 shadow-[0_8px_20px_rgba(250,204,21,0.3)] ring-1 ring-white/20">
+                        <span className="text-xl font-black italic">
+                          {user.user_metadata?.full_name?.charAt(0) ||
+                            user.email?.charAt(0)}
+                        </span>
+                      </div>
+
+                      <div className="flex-1">
+                        <p className="text-slate-400 text-[10px] uppercase font-black tracking-[0.2em] mb-1">
+                          Student Profile
+                        </p>
+                        <h2 className="text-white font-bold text-lg leading-tight tracking-tight">
+                          {user.user_metadata?.full_name || 'Festus'}
+                        </h2>
+                        <div className="inline-flex items-center gap-1.5 mt-1 px-2 py-0.5 bg-yellow-400/10 rounded-full border border-yellow-400/20">
+                          <span className="w-1 h-1 bg-yellow-400 rounded-full animate-pulse"></span>
+                          <span className="text-yellow-400 text-[9px] uppercase font-black tracking-widest">
+                            {user.user_metadata?.level || '100'} Level
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Text Info */}
-                    <div className="flex flex-col">
-                      <h2 className="text-white text-xs font-medium opacity-70 uppercase tracking-tighter">
-                        Welcome back,
-                      </h2>
-                      <p className="text-white font-bold text-base leading-tight">
-                        {user.user_metadata?.full_name || 'EEE Student'}
-                      </p>
-                      <span className="text-yellow-400 text-[10px] uppercase font-black tracking-widest mt-1">
-                        Level: {user.user_metadata?.level || 'N/A'}
+                    <button
+                      onClick={handleLogout}
+                      className="group/btn relative w-full overflow-hidden py-3 bg-white/5 hover:bg-red-500/10 rounded-xl border border-white/10 hover:border-red-500/30 transition-all duration-300"
+                    >
+                      <span className="relative z-10 text-white/60 group-hover/btn:text-red-400 text-[10px] font-black uppercase tracking-[0.3em] transition-colors">
+                        Logout Session
                       </span>
-                    </div>
+                    </button>
                   </div>
-
-                  {/* Logout Button */}
-                  <button
-                    onClick={handleLogout}
-                    className="ml-4 px-4 py-2 bg-white/10 hover:bg-red-500/20 hover:text-red-400 text-white/70 text-xs font-bold uppercase tracking-widest rounded-lg border border-white/5 transition-all duration-300"
-                  >
-                    Logout
-                  </button>
                 </div>
               ) : (
-                <div className="flex items-center justify-between w-full bg-black/10 p-4 rounded-xl">
-                  <p className="text-black/60 text-sm font-bold uppercase tracking-widest italic">
-                    Guest Mode
-                  </p>
-                  <a
-                    href="/login"
-                    className="text-blue-600 font-bold text-sm underline"
-                  >
-                    Login
-                  </a>
-                </div>
+                <button className="w-full py-4 bg-yellow-400 text-slate-900 font-black rounded-2xl uppercase tracking-widest text-xs shadow-xl shadow-yellow-400/20 active:scale-95 transition-transform">
+                  Access Portal
+                </button>
               )}
             </div>
           </div>
@@ -274,7 +271,6 @@ export default function Navbar() {
                             if (!currentSlide) return null;
 
                             return (
-                              /* 2. Wrap the inner content in a motion.div */
                               <motion.div
                                 key={`${item.name}-${currentIndex}`}
                                 initial={{ opacity: 0, x: 50 }}
@@ -375,15 +371,15 @@ export default function Navbar() {
         </motion.nav>
 
         {/* 3. MOBILE SIDEBAR */}
-        {/* Overlay: Handles click-anywhere-outside to close */}
+        {/* Overlay: Handles click-anywhere-outside to close  the navbar !!!!*/}
         <div
           className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-60 transition-opacity duration-300 ${
             isDrawerOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
-          onClick={() => setIsDrawerOpen(false)} // Closes when clicking outside
+          onClick={() => setIsDrawerOpen(false)}
         />
 
-        {/* Panel */}
+        {/* The Panel */}
         <div
           className={`fixed top-0 right-0 h-full w-72 bg-linear-to-b from-[#000a4d] to-[#001489] z-70 
              shadow-2xl transform transition-transform duration-300 ease-in-out ${
@@ -391,11 +387,11 @@ export default function Navbar() {
              } overflow-y-auto flex flex-col`}
         >
           {/* Header with Close Button & Static Links */}
-          {/* 2. PROFILE SECTION AT TOP OF SIDEBAR */}
+
           <div className="p-6 border-b border-white/10 bg-black/30">
+            {/* checking for user is logged in or not */}
             {user ? (
               <div className="flex items-center gap-3">
-                {/* Circle with first letter of name */}
                 <div className="w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center text-blue-900 font-black text-xl">
                   {user.user_metadata?.full_name?.charAt(0) ||
                     user.email?.charAt(0)}
@@ -410,7 +406,6 @@ export default function Navbar() {
                 </div>
               </div>
             ) : (
-              /* SHARP GUEST MODE TAG */
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2 w-fit px-3 py-1 bg-white/10 border border-white/20 rounded-md">
                   <span className="relative flex h-2 w-2">
@@ -471,7 +466,7 @@ export default function Navbar() {
                 </svg>
               </button>
             </div>
-            {/* Static Top Links: About & Contact */}
+
             <div className="flex flex-col px-4 pb-4 gap-2">
               <NavLink
                 to="/about"

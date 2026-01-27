@@ -14,12 +14,11 @@ export default function MeetTheHOD() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="relative group"
           >
-            {/* Decorative Background Element */}
             <div className="absolute -inset-4 bg-blue-600/10 rounded-2xl -rotate-3 group-hover:rotate-0 transition-transform duration-500" />
 
             <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
               <img
-                src={HOD} // Replace with actual HOD image
+                src={HOD}
                 alt="Head of Department"
                 className="w-full h-125 object-cover object-top scale-105 group-hover:scale-100 transition-transform duration-700"
               />

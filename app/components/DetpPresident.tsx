@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Mail, Linkedin, MapPin, Zap, Cpu, Shield, Globe } from 'lucide-react';
 import PRES from '../Assets/president.jpeg';
 
-// Define variants outside to ensure they are static
 const fader = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },

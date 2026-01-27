@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Zap, ArrowRight, Menu, X, BookOpen } from 'lucide-react';
 import Features from '../components/Features';
 import { supabase } from '~/lib/supabase';
+import lab from '../Assets/lab.jpg';
 
 export default function Hero() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -206,7 +207,7 @@ export default function Hero() {
             >
               <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border-12 border-white">
                 <img
-                  src="https://images.unsplash.com/photo-1581092334651-ddf26d9a1930?auto=format&fit=crop&q=80&w=1000"
+                  src={lab}
                   alt="Engineering Lab"
                   className="w-full h-137.5 object-cover"
                 />

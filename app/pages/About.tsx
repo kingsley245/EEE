@@ -11,7 +11,6 @@ export default function AboutUs() {
 
   return (
     <div className="bg-white">
-      {/* 1. Page Header */}
       <section className="relative py-20 bg-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
@@ -25,7 +24,6 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 2. Mission & Vision Section */}
       <section className="py-20 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
         <div>
           <span className="text-red-600 font-bold uppercase tracking-widest text-sm">
@@ -61,7 +59,6 @@ export default function AboutUs() {
           </div>
         </div>
         <div className="relative">
-          {/* Replace with your local image: src={aboutImg} */}
           <img
             src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&q=80&w=800"
             alt="Engineering Lab"
@@ -74,7 +71,6 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 3. Statistical Impact (Grid) */}
       <section className="bg-slate-50 py-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -92,7 +88,6 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 4. Core Values Section */}
       <section className="py-20 max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-slate-900">
@@ -125,7 +120,6 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 5. Call to Action */}
       <section className="bg-red-600 py-12">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
           <h2 className="text-2xl md:text-3xl font-bold text-white">

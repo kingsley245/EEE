@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// 1. FIXED INTERFACE: img is an object with a string url
 interface Lecturer {
   id: number;
   name: string;
@@ -41,7 +40,7 @@ export default function FeaturedLecturers() {
         }
       } catch (error) {
         console.error('Vercel Fetch Error:', error);
-        // Fallback to empty array so the UI doesn't crash
+
         setLecturers([]);
       } finally {
         setLoading(false);
@@ -120,7 +119,6 @@ export default function FeaturedLecturers() {
             >
               <div className="h-80 relative overflow-hidden">
                 <img
-                  /* 3. FIXED SRC: Checks for full URL (Cloudinary) or relative URL (Local) */
                   src={
                     lecturer.img?.url ||
                     'https://placehold.co/600x800/e2e8f0/1e293b?text=No+Image'

@@ -6,11 +6,8 @@ import { supabase } from '~/lib/supabase';
 import { useNavigate } from 'react-router';
 
 export default function PortalLayout() {
-  // Inside your Hero function
-  const [user, setUser] = useState<any>(null); // Now setUser is defined!
-
+  const [user, setUser] = useState<any>(null);
   useEffect(() => {
-    // 1. Check for the current user immediately
     const getCurrentUser = async () => {
       const {
         data: { user },
@@ -19,7 +16,6 @@ export default function PortalLayout() {
     };
     getCurrentUser();
 
-    // 2. Listen for Login/Logout events so the UI updates automatically
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {

@@ -14,7 +14,6 @@ export default [
   route('aboutus', 'pages/About.tsx'),
   route('reset-password', 'pages/resetpassword.tsx'),
 
-  // 2. PORTAL ROUTES (Everything here is prefixed with /portal)
   route('portal', 'layouts/Portal.tsx', [
     index('routes/Home/route.tsx'),
     route('electronics', 'routes/Electronics/route.tsx'),
@@ -26,9 +25,7 @@ export default [
     route('machines', 'routes/Machines/route.tsx'),
     route('power', 'routes/Power/route.tsx'),
     route('control', 'routes/Control/route.tsx'),
-    // Note: I removed the '*' from here
   ]),
 
-  // 3. GLOBAL CATCH-ALL (Move it here!)
   route('*', 'routes/notfound/route.tsx'),
 ] satisfies RouteConfig;

@@ -11,14 +11,13 @@ export default function ContactUs() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic for IoT/Backend integration would go here
+
     console.log('Form Submitted:', formData);
     alert('Thank you! Your message has been sent to the Department.');
   };
 
   return (
     <div className="bg-white min-h-screen">
-      {/* 1. Header Section */}
       <section className="bg-slate-900 py-16 px-6">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl font-bold text-white mb-4">
@@ -31,10 +30,8 @@ export default function ContactUs() {
         </div>
       </section>
 
-      {/* 2. Main Contact Grid */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid lg:grid-cols-3 gap-12">
-          {/* Column 1: Contact Information */}
           <div className="lg:col-span-1 space-y-8">
             <div>
               <h3 className="text-xl font-bold text-slate-900 mb-6 border-l-4 border-red-600 pl-4">
@@ -95,7 +92,7 @@ export default function ContactUs() {
             </div>
           </div>
 
-          {/* Column 2 & 3: The Contact Form */}
+          {/* The Contact Form */}
           <div className="lg:col-span-2 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
             <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">

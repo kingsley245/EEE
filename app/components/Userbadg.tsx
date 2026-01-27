@@ -38,7 +38,6 @@ export default function UserBadge() {
 
   return (
     <div className="relative">
-      {/* The Trigger Badge */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-3 bg-white border border-slate-200 p-1.5 pr-4 rounded-2xl hover:shadow-md transition-all active:scale-95"

@@ -18,8 +18,6 @@ export default function TutorialDirectory() {
           </p>
         </div>
 
-        {/* Search / Discover Tags (As seen in your screenshot) */}
-
         <EngineeringSearch />
         {/* Table of Contents Box */}
         <div className="bg-white border border-gray-200 rounded-lg p-8 shadow-sm mb-16">
@@ -53,7 +51,6 @@ export default function TutorialDirectory() {
             <h2 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-2">
               <span className="w-8 h-1 bg-red-600 rounded"></span>
               {category.title.split('. ')[1]}{' '}
-              {/* Removes the number for the heading */}
             </h2>
 
             <ul className="space-y-4 ml-4">

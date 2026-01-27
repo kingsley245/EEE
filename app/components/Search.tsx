@@ -99,7 +99,6 @@ export default function EngineeringSearch() {
           ))}
         </div>
 
-        {/* --- DYNAMIC RESULTS --- */}
         {query && (
           <div className="mt-6 animate-in fade-in slide-in-from-top-2 duration-300">
             <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
