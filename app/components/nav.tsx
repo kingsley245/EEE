@@ -1,12 +1,30 @@
 import { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { navLinks } from '~/lib/Navlinks';
 import { AnimatePresence } from 'framer-motion';
+import UserBadge from './Userbadg';
+import { supabase } from '~/lib/supabase';
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    // Check current user
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+
+    // Listen for changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
   useEffect(() => {
     const controlNavbar = () => {
       if (window.scrollY > lastScrollY && window.scrollY > 100) {
@@ -89,7 +107,7 @@ export default function Navbar() {
   });
 
   const message = 'I love Electrical $ electronics';
-
+  const location = useLocation();
   return (
     <>
       <header>
@@ -118,35 +136,29 @@ export default function Navbar() {
           </div>
           {/* The right side container */}
           <div className="flex items-center space-x-3 md:space-x-4 text-xs font-semibold text-gray-600">
-            <Link
-              to="/register"
-              className="bg-blue-700 md:bg-linear-to-r md:from-blue-700 md:to-blue-900 text-white rounded px-2 py-1 md:p-2 text-[9px] md:text-xs shrink-0 inline-block"
-            >
-              Register
-            </Link>
-
-            <Link
-              to="/login"
-              onClick={(e) => {
-                e.preventDefault();
-                alert('still in development!');
-              }}
-              className="bg-blue-700 md:bg-linear-to-r md:from-blue-700 md:to-blue-900 text-white rounded px-2 py-1 md:p-2 text-[9px] md:text-xs shrink-0 inline-block md:block hover:text-blue-700 transition"
-            >
-              Login
-            </Link>
-            <Link
-              to="/about"
-              className="hidden md:block hover:text-blue-700 transition"
-            >
-              ABOUT US
-            </Link>
-            <Link
-              to="/contact"
-              className="hidden md:block hover:text-blue-700 transition"
-            >
-              CONTACT US
-            </Link>
+            {/* Inside the Mobile Panel div */}
+            <div className="p-6 border-b border-white/10">
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center text-blue-900 font-black">
+                    {user.user_metadata?.full_name?.charAt(0) ||
+                      user.email?.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-white font-bold text-sm leading-tight">
+                      {user.user_metadata?.full_name || 'Student'}
+                    </p>
+                    <p className="text-white/50 text-[10px] uppercase font-black tracking-widest">
+                      {user.user_metadata?.level || 'No Level Set'}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-black text-xl font-bold uppercase tracking-widest">
+                  Guest Mode
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
@@ -161,7 +173,7 @@ export default function Navbar() {
           transition={{ duration: 0.3, ease: 'easeInOut' }}
         >
           <div className="flex items-center">
-            <Link to="/" className="text-white text-2xl font-bold p-3">
+            <Link to="/home" className="text-white text-2xl font-bold p-3">
               NDU EEE
             </Link>
           </div>
@@ -173,11 +185,7 @@ export default function Navbar() {
                 key={index}
                 className="group h-full flex items-center static"
               >
-                <NavLink
-                  to={item.path}
-                  className={activeLink}
-                  end={item.name === 'Home'}
-                >
+                <NavLink to={item.path} className={activeLink} end>
                   {item.name}
                   {/* DROPDOWN ARROW: Only shows if the item has sub-links */}
                   {item.links && item.links.length > 0 && (
@@ -227,10 +235,10 @@ export default function Navbar() {
                             return (
                               /* 2. Wrap the inner content in a motion.div */
                               <motion.div
-                                key={`${item.name}-${currentIndex}`} // Unique key is the "trigger" for the slide
-                                initial={{ opacity: 0, x: 50 }} // Starts invisible and 50px to the right
-                                animate={{ opacity: 1, x: 0 }} // Slides into position
-                                exit={{ opacity: 0, x: -50 }} // Slides out to the left
+                                key={`${item.name}-${currentIndex}`}
+                                initial={{ opacity: 0, x: 50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -50 }}
                                 transition={{
                                   duration: 0.4,
                                   ease: 'easeInOut',
@@ -337,13 +345,49 @@ export default function Navbar() {
         {/* Panel */}
         <div
           className={`fixed top-0 right-0 h-full w-72 bg-linear-to-b from-[#000a4d] to-[#001489] z-70 
-  shadow-2xl transform transition-transform duration-300 ease-in-out ${
-    isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
-  } overflow-y-auto flex flex-col`}
+             shadow-2xl transform transition-transform duration-300 ease-in-out ${
+               isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
+             } overflow-y-auto flex flex-col`}
         >
           {/* Header with Close Button & Static Links */}
+          {/* 2. PROFILE SECTION AT TOP OF SIDEBAR */}
+          <div className="p-6 border-b border-white/10 bg-black/30">
+            {user ? (
+              <div className="flex items-center gap-3">
+                {/* Circle with first letter of name */}
+                <div className="w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center text-blue-900 font-black text-xl">
+                  {user.user_metadata?.full_name?.charAt(0) ||
+                    user.email?.charAt(0)}
+                </div>
+                <div>
+                  <p className="text-white font-bold text-base leading-tight">
+                    Welcome back!
+                  </p>
+                  <p className="text-yellow-400 text-[10px] uppercase font-black tracking-widest mt-1">
+                    {user.user_metadata?.level || 'Student'}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              /* SHARP GUEST MODE TAG */
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2 w-fit px-3 py-1 bg-white/10 border border-white/20 rounded-md">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-400"></span>
+                  </span>
+                  <p className="text-white text-[10px] font-black uppercase tracking-[0.2em]">
+                    Guest Mode
+                  </p>
+                </div>
+                <p className="text-blue-300/60 text-[9px] font-bold pl-1 uppercase">
+                  Login for full access
+                </p>
+              </div>
+            )}
+          </div>
           <div className="flex flex-col border-b border-white/10 bg-black/10">
-            <div className="flex justify-end p-4">
+            {/* <div className="flex justify-end p-4">
               <button
                 onClick={() => setIsDrawerOpen(false)} // X button closes sidebar
                 className="text-white/70 hover:text-white transition-colors"
@@ -362,8 +406,30 @@ export default function Navbar() {
                   />
                 </svg>
               </button>
+            </div> */}
+            <div className="flex justify-between items-center p-4 px-6">
+              <span className="text-white/30 text-[10px] font-bold uppercase tracking-widest">
+                Navigation
+              </span>
+              <button
+                onClick={() => setIsDrawerOpen(false)}
+                className="text-white/70 hover:text-white"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
             </div>
-
             {/* Static Top Links: About & Contact */}
             <div className="flex flex-col px-4 pb-4 gap-2">
               <NavLink
@@ -394,13 +460,15 @@ export default function Navbar() {
                   <NavLink
                     to={item.path}
                     onClick={() => setIsDrawerOpen(false)}
-                    className={({ isActive }) =>
-                      `flex-1 font-bold text-[13px] uppercase p-4 transition-all ${
-                        isActive
+                    className={() => {
+                      const isStrictActive = location.pathname === item.path;
+
+                      return `flex-1 font-bold text-[13px] uppercase p-4 transition-all ${
+                        isStrictActive
                           ? 'text-yellow-400 border-l-4 border-yellow-400 bg-white/10'
                           : 'text-white'
-                      }`
-                    }
+                      }`;
+                    }}
                   >
                     {item.name}
                   </NavLink>

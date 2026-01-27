@@ -1,13 +1,43 @@
 import { motion } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react'; // Added useEffect
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { lecturers } from '~/lib/lecturerData';
+// REMOVED: import { lecturers } from '~/lib/lecturerData';
 
+// defining typescript data for  strapi
+interface Lecturer {
+  id: number;
+  name: string;
+  roles: string[];
+  img: {
+    url: string;
+  }[];
+}
 export default function FeaturedLecturers() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const [lecturers, setLecturers] = useState<Lecturer[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getLecturers = async () => {
+      try {
+        const response = await fetch(
+          'http://localhost:1337/api/lectures?populate=*',
+        );
+        const result = await response.json();
+
+        setLecturers(result.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching lecturers:', error);
+        setLoading(false);
+      }
+    };
+    getLecturers();
+  }, []);
 
   const checkScroll = () => {
     if (containerRef.current) {
@@ -26,12 +56,12 @@ export default function FeaturedLecturers() {
     }
   };
 
+  if (loading)
+    return <div className="py-16 text-center">Loading Leadership...</div>;
+
   return (
     <section className="py-16 bg-slate-50 overflow-hidden">
-      {' '}
-      {/* Reduced vertical padding */}
       <div className="max-w-7xl mx-auto px-6 relative">
-        {/* Header Section - More compact margins */}
         <div className="mb-8 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="max-w-xl">
             <motion.h4
@@ -46,7 +76,6 @@ export default function FeaturedLecturers() {
             </h2>
           </div>
 
-          {/* Controls - Smaller buttons */}
           <div className="flex gap-2 self-center md:self-end">
             <button
               onClick={() => scroll('left')}
@@ -65,36 +94,33 @@ export default function FeaturedLecturers() {
           </div>
         </div>
 
-        {/* Horizontal Slider */}
         <motion.div
           ref={containerRef}
           onScroll={checkScroll}
           className="flex gap-6 overflow-x-auto no-scrollbar pb-8 pt-2 snap-x snap-mandatory cursor-grab active:cursor-grabbing"
         >
-          {lecturers.map((lecturer, index) => (
+          {lecturers.map((lecturer) => (
             <motion.div
               key={lecturer.id}
               className="min-w-65 md:min-w-70 bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 snap-start group"
             >
-              {/* Image Container - Height reduced from h-96 to h-64 */}
-              <div className="h-64 relative overflow-hidden">
+              <div className="h-100 relative overflow-hidden">
                 <img
-                  src={lecturer.img}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                  /* UPDATED: Path to Strapi/Cloudinary Image */
+                  src={lecturer.img?.[0]?.url || '/placeholder-image.jpg'}
+                  className="w-full h-full object-cover  group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
                   alt={lecturer.name}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-blue-950/60 via-transparent to-transparent opacity-60" />
               </div>
 
-              {/* Content Area - Reduced padding from p-6 to p-5 */}
               <div className="p-5 relative">
                 <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
                   {lecturer.name}
                 </h3>
 
-                {/* Roles - Smaller text */}
                 <div className="flex flex-wrap gap-1.5">
-                  {lecturer.roles.map((role, rIdx) => (
+                  {lecturer.roles?.map((role, rIdx) => (
                     <span
                       key={rIdx}
                       className="bg-blue-50 text-blue-700 text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide border border-blue-100"

@@ -12,6 +12,7 @@ import './app.css';
 import Footer from './components/footer';
 import Navbar from './components/nav';
 import BackToTop from './components/Animate';
+import Hero from './components/LandingPage';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -47,9 +48,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <main className="max-w-6xl mx-auto top-0 my-8">
-      <Navbar />
       <Outlet />
-      <Footer />
+
       <BackToTop />
     </main>
   );

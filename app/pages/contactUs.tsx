@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Footer from '~/components/footer';
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -171,6 +172,7 @@ export default function ContactUs() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

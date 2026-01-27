@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import Footer from '~/components/footer';
 
 export default function AboutUs() {
   const stats = [
@@ -138,6 +139,7 @@ export default function AboutUs() {
           </Link>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

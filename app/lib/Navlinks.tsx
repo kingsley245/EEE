@@ -1,9 +1,11 @@
+import finalYear from '../Assets/final year student.jpg';
+import Images from '../Assets/image.png';
 export const navLinks = [
-  { name: 'Home', path: '/', links: [] },
-  { name: 'Tutorial', path: '/Tutorial', links: [] },
+  { name: 'Home', path: '/Portal', links: [] },
+  { name: 'Tutorial', path: '/portal/Tutorial', links: [] },
   {
     name: 'Electrical Wiring',
-    path: '/electrical-wiring',
+    path: '/portal/electrical-wiring',
     links: [
       {
         text: 'Home Electrical Wiring',
@@ -20,32 +22,32 @@ export const navLinks = [
     // Structured for slider
     content: [
       {
-        image: '/final year student.jpg',
+        image: finalYear,
         title: 'How to Wire a Single-Pole GFCI Breaker in a 120/240V Panel',
         sidePosts: [
           {
             title: '3-Phase Breaker Wiring...',
-            thumb: '/final year student.jpg',
+            thumb: finalYear,
           },
           {
             title: 'Two-Pole Circuit Breaker...',
-            thumb: '/final year student.jpg',
+            thumb: finalYear,
           },
         ],
       },
       {
-        image: '/solar-install.jpg',
+        image: finalYear,
         title: 'Advanced Solar Grid-Tie Inverter Setup Guide',
         sidePosts: [
-          { title: 'Battery Bank Series Wiring', thumb: '/battery.jpg' },
-          { title: 'Charge Controller Settings', thumb: '/controller.jpg' },
+          { title: 'Battery Bank Series Wiring', thumb: finalYear },
+          { title: 'Charge Controller Settings', thumb: finalYear },
         ],
       },
     ],
   },
   {
     name: 'EE-Essentials',
-    path: '/ee-essentials',
+    path: '/portal/ee-essentials',
     links: [
       { text: 'How to', label: 'HOT', labelColor: 'bg-red-600' },
       { text: 'EE Calculators', label: '' },
@@ -60,32 +62,32 @@ export const navLinks = [
     ],
     content: [
       {
-        image: '/final year student.jpg',
+        image: Images,
         title: 'How to Wire a Single-Pole GFCI Breaker in a 120/240V Panel',
         sidePosts: [
           {
             title: '3-Phase Breaker Wiring...',
-            thumb: '/final year student.jpg',
+            thumb: finalYear,
           },
           {
             title: 'Two-Pole Circuit Breaker...',
-            thumb: '/final year student.jpg',
+            thumb: finalYear,
           },
         ],
       },
       {
-        image: '/solar-install.jpg',
+        image: finalYear,
         title: 'Advanced Solar Grid-Tie Inverter Setup Guide',
         sidePosts: [
-          { title: 'Battery Bank Series Wiring', thumb: '/battery.jpg' },
-          { title: 'Charge Controller Settings', thumb: '/controller.jpg' },
+          { title: 'Battery Bank Series Wiring', thumb: finalYear },
+          { title: 'Charge Controller Settings', thumb: finalYear },
         ],
       },
     ],
   },
   {
     name: 'Basic',
-    path: '/basics',
+    path: '/portal/basics',
     links: [
       {
         text: 'Basics concept',
@@ -101,31 +103,31 @@ export const navLinks = [
     ],
     content: [
       {
-        image: '/electronics-1.jpg',
+        image: finalYear,
         title: 'LED Light Bulb Circuit – 230V / 120V Mains Operated LEDs',
         sidePosts: [
           {
             title: 'Difference Between Zener & Avalanche',
-            thumb: '/diode.jpg',
+            thumb: finalYear,
           },
-          { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-          { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
+          { title: 'Edge vs Level Triggering', thumb: finalYear },
+          { title: 'Amplifier vs Op-Amp', thumb: finalYear },
         ],
       },
       {
-        image: '/logic-gates.jpg',
+        image: finalYear,
         title: 'Mastering Boolean Algebra for Digital Logic Design',
         sidePosts: [
-          { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-          { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-          { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
+          { title: 'Sequential Logic Circuits', thumb: finalYear },
+          { title: 'Combinational Circuits', thumb: finalYear },
+          { title: 'Signal Processing Basics', thumb: finalYear },
         ],
       },
     ],
   },
   {
     name: 'Control',
-    path: '/control',
+    path: '/portal/control',
     links: [
       { text: 'All', label: '' },
       { text: 'Basic Electronics', label: '' },
@@ -134,31 +136,31 @@ export const navLinks = [
     ],
     content: [
       {
-        image: '/electronics-1.jpg',
+        image: finalYear,
         title: 'LED Light Bulb Circuit – 230V / 120V Mains Operated LEDs',
         sidePosts: [
           {
             title: 'Difference Between Zener & Avalanche',
-            thumb: '/diode.jpg',
+            thumb: finalYear,
           },
-          { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-          { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
+          { title: 'Edge vs Level Triggering', thumb: finalYear },
+          { title: 'Amplifier vs Op-Amp', thumb: finalYear },
         ],
       },
       {
-        image: '/logic-gates.jpg',
+        image: finalYear,
         title: 'Mastering Boolean Algebra for Digital Logic Design',
         sidePosts: [
-          { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-          { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-          { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
+          { title: 'Sequential Logic Circuits', thumb: finalYear },
+          { title: 'Combinational Circuits', thumb: finalYear },
+          { title: 'Signal Processing Basics', thumb: finalYear },
         ],
       },
     ],
   },
   {
     name: 'Machines',
-    path: '/machines',
+    path: '/portal/machines',
     links: [
       { text: 'All', label: '' },
       { text: 'Basic Electronics', label: '' },
@@ -167,31 +169,31 @@ export const navLinks = [
     ],
     content: [
       {
-        image: '/electronics-1.jpg',
+        image: finalYear,
         title: 'LED Light Bulb Circuit – 230V / 120V Mains Operated LEDs',
         sidePosts: [
           {
             title: 'Difference Between Zener & Avalanche',
-            thumb: '/diode.jpg',
+            thumb: finalYear,
           },
-          { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-          { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
+          { title: 'Edge vs Level Triggering', thumb: finalYear },
+          { title: 'Amplifier vs Op-Amp', thumb: finalYear },
         ],
       },
       {
-        image: '/logic-gates.jpg',
+        image: finalYear,
         title: 'Mastering Boolean Algebra for Digital Logic Design',
         sidePosts: [
-          { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-          { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-          { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
+          { title: 'Sequential Logic Circuits', thumb: finalYear },
+          { title: 'Combinational Circuits', thumb: finalYear },
+          { title: 'Signal Processing Basics', thumb: finalYear },
         ],
       },
     ],
   },
   {
     name: 'Power',
-    path: '/Power',
+    path: '/portal/Power',
     links: [
       { text: 'All', label: '' },
       { text: 'Basic Electronics', label: '' },
@@ -200,31 +202,31 @@ export const navLinks = [
     ],
     content: [
       {
-        image: '/electronics-1.jpg',
+        image: finalYear,
         title: 'LED Light Bulb Circuit – 230V / 120V Mains Operated LEDs',
         sidePosts: [
           {
             title: 'Difference Between Zener & Avalanche',
-            thumb: '/diode.jpg',
+            thumb: finalYear,
           },
-          { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-          { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
+          { title: 'Edge vs Level Triggering', thumb: finalYear },
+          { title: 'Amplifier vs Op-Amp', thumb: finalYear },
         ],
       },
       {
-        image: '/logic-gates.jpg',
+        image: finalYear,
         title: 'Mastering Boolean Algebra for Digital Logic Design',
         sidePosts: [
-          { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-          { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-          { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
+          { title: 'Sequential Logic Circuits', thumb: finalYear },
+          { title: 'Combinational Circuits', thumb: finalYear },
+          { title: 'Signal Processing Basics', thumb: finalYear },
         ],
       },
     ],
   },
   {
     name: 'Electronics',
-    path: '/electronics',
+    path: '/portal/electronics',
     links: [
       { text: 'All', label: '' },
       { text: 'Basic Electronics', label: '' },
@@ -233,24 +235,24 @@ export const navLinks = [
     ],
     content: [
       {
-        image: '/electronics-1.jpg',
+        image: finalYear,
         title: 'LED Light Bulb Circuit – 230V / 120V Mains Operated LEDs',
         sidePosts: [
           {
             title: 'Difference Between Zener & Avalanche',
-            thumb: '/diode.jpg',
+            thumb: finalYear,
           },
-          { title: 'Edge vs Level Triggering', thumb: '/logic.jpg' },
-          { title: 'Amplifier vs Op-Amp', thumb: '/opamp.jpg' },
+          { title: 'Edge vs Level Triggering', thumb: finalYear },
+          { title: 'Amplifier vs Op-Amp', thumb: finalYear },
         ],
       },
       {
-        image: '/logic-gates.jpg',
+        image: finalYear,
         title: 'Mastering Boolean Algebra for Digital Logic Design',
         sidePosts: [
-          { title: 'Sequential Logic Circuits', thumb: '/seq.jpg' },
-          { title: 'Combinational Circuits', thumb: '/comb.jpg' },
-          { title: 'Signal Processing Basics', thumb: '/signal.jpg' },
+          { title: 'Sequential Logic Circuits', thumb: finalYear },
+          { title: 'Combinational Circuits', thumb: finalYear },
+          { title: 'Signal Processing Basics', thumb: finalYear },
         ],
       },
     ],
