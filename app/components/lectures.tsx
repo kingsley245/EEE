@@ -1,38 +1,47 @@
 import { motion } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react'; // Added useEffect
+import { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// REMOVED: import { lecturers } from '~/lib/lecturerData';
-
-// defining typescript data for  strapi
+// 1. FIXED INTERFACE: img is an object with a string url
 interface Lecturer {
   id: number;
   name: string;
   roles: string[];
-  img: {
+  img?: {
     url: string;
-  }[];
+  };
 }
+
 export default function FeaturedLecturers() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-
   const [lecturers, setLecturers] = useState<Lecturer[]>([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const getLecturers = async () => {
       try {
         const response = await fetch(
-          'http://localhost:1337/api/lectures?populate=*',
+          'https://eee-backend-yspo.onrender.com/api/lectures?populate=*',
         );
         const result = await response.json();
 
-        setLecturers(result.data);
+        // Look at this in your browser console (F12)
+        console.log('RAW DATA FROM STRAPI:', result.data[0]);
+
+        if (result?.data) {
+          const formattedData = result.data.map((item: any) => ({
+            id: item.id,
+            name: item.name,
+            roles: item.roles || [],
+            // ✅ FIX: Access the first element of the array [0]
+            img: item.img && item.img.length > 0 ? item.img[0] : null,
+          }));
+          setLecturers(formattedData);
+        }
         setLoading(false);
-      } catch (error) {
-        console.error('Error fetching lecturers:', error);
+      } catch (e) {
+        console.error(e);
         setLoading(false);
       }
     };
@@ -57,7 +66,11 @@ export default function FeaturedLecturers() {
   };
 
   if (loading)
-    return <div className="py-16 text-center">Loading Leadership...</div>;
+    return (
+      <div className="py-16 text-center font-bold text-blue-900 animate-pulse">
+        Loading Academic Leadership...
+      </div>
+    );
 
   return (
     <section className="py-16 bg-slate-50 overflow-hidden">
@@ -104,11 +117,19 @@ export default function FeaturedLecturers() {
               key={lecturer.id}
               className="min-w-65 md:min-w-70 bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 snap-start group"
             >
-              <div className="h-100 relative overflow-hidden">
+              <div className="h-80 relative overflow-hidden">
                 <img
-                  /* UPDATED: Path to Strapi/Cloudinary Image */
-                  src={lecturer.img?.[0]?.url || '/placeholder-image.jpg'}
-                  className="w-full h-full object-cover  group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                  /* 3. FIXED SRC: Checks for full URL (Cloudinary) or relative URL (Local) */
+                  src={
+                    lecturer.img?.url ||
+                    'https://placehold.co/600x800/e2e8f0/1e293b?text=No+Image'
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    alert('still in development');
+                    return;
+                  }}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                   alt={lecturer.name}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-blue-950/60 via-transparent to-transparent opacity-60" />
