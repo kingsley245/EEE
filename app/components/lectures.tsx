@@ -24,30 +24,31 @@ export default function FeaturedLecturers() {
         const response = await fetch(
           'https://eee-backend-yspo.onrender.com/api/lectures?populate=*',
         );
+
+        // If Render is sleeping, response might not be ok
+        if (!response.ok) throw new Error('Backend is sleeping or unreachable');
+
         const result = await response.json();
 
-        // Look at this in your browser console (F12)
-        console.log('RAW DATA FROM STRAPI:', result.data[0]);
-
-        if (result?.data) {
+        if (result?.data && Array.isArray(result.data)) {
           const formattedData = result.data.map((item: any) => ({
             id: item.id,
-            name: item.name,
+            name: item.name || 'Unknown',
             roles: item.roles || [],
-            // ✅ FIX: Access the first element of the array [0]
             img: item.img && item.img.length > 0 ? item.img[0] : null,
           }));
           setLecturers(formattedData);
         }
-        setLoading(false);
-      } catch (e) {
-        console.error(e);
+      } catch (error) {
+        console.error('Vercel Fetch Error:', error);
+        // Fallback to empty array so the UI doesn't crash
+        setLecturers([]);
+      } finally {
         setLoading(false);
       }
     };
     getLecturers();
   }, []);
-
   const checkScroll = () => {
     if (containerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
