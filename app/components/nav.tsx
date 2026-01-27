@@ -82,11 +82,23 @@ export default function Navbar() {
 
   // function to handle logout
   const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) console.error('Error logging out:', error.message);
-    // Optional: window.location.href = '/login';
-  };
+    try {
+      // 1. Tell Supabase to kill the session
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
 
+      // 2. Clear any local storage just in case (optional but clean)
+      localStorage.clear();
+
+      // 3. Force the browser to go to the landing page
+      // Using .replace instead of .href is better for security
+      window.location.replace('/');
+    } catch (error) {
+      console.error('Logout failed:', error.message);
+      // Even if Supabase fails, force them out anyway
+      window.location.replace('/');
+    }
+  };
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
 
