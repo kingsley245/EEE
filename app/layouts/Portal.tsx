@@ -3,6 +3,7 @@ import Navbar from '~/components/nav';
 import Footer from '~/components/footer';
 import { useEffect, useState } from 'react';
 import { supabase } from '~/lib/supabase';
+import { useNavigate } from 'react-router';
 
 export default function PortalLayout() {
   // Inside your Hero function
@@ -27,6 +28,19 @@ export default function PortalLayout() {
 
     return () => subscription.unsubscribe();
   }, []);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        navigate('/reset-password');
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
 
   return (
     <div className="max-w-6xl mx-auto px-4">

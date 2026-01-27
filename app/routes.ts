@@ -12,6 +12,7 @@ export default [
   route('contactus', 'pages/contactUs.tsx'),
   route('forgot-password', 'pages/forgot.tsx'),
   route('aboutus', 'pages/About.tsx'),
+  route('reset-password', 'pages/resetpassword.tsx'),
 
   // 2. PORTAL ROUTES (Everything here is prefixed with /portal)
   route('portal', 'layouts/Portal.tsx', [
