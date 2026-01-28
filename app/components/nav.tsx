@@ -3,7 +3,6 @@ import { Link, NavLink, useLocation } from 'react-router';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { navLinks } from '~/lib/Navlinks';
 import { AnimatePresence } from 'framer-motion';
-import UserBadge from './Userbadg';
 import { supabase } from '~/lib/supabase';
 
 export default function Navbar() {

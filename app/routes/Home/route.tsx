@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { slides } from '~/lib/HomeData';
 import { Link } from 'react-router';
 import CourseCurriculum from '~/components/courses';
+import AssignmentList from '~/pages/Asignment';
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -113,6 +114,7 @@ const Home = () => {
         </div>
       </section>
       <CourseCurriculum />
+      <AssignmentList />
     </>
   );
 };
