@@ -125,77 +125,61 @@ export default function Navbar() {
   return (
     <>
       <header>
-        <div className="flex bg-white text-black  text-[10px] md:text-1xl py-2 md:py-1 px-4 md:px-6 justify-between items-center border-b">
-          <div className="flex items-center">
-            <span className="bg-red-500 text-white px-2 py-0.5 font-bold mr-2 md:mr-3 rounded animate-pulse shrink-0">
-              Breaking News
+        <div className="flex bg-white text-black text-[10px] md:text-xs py-1.5 px-4 md:px-6 justify-between items-center border-b border-gray-100">
+          {/* LEFT SIDE: Breaking News */}
+          <div className="flex items-center flex-1">
+            <span className="bg-red-500 text-white px-2 py-0.5 font-bold mr-3 rounded animate-pulse shrink-0">
+              LIVE
             </span>
-
-            <motion.span
-              initial={{ width: '0%' }}
-              animate={{ width: '100%' }}
-              transition={{
-                duration: 4,
-                ease: 'linear',
-                repeat: Infinity,
-                repeatType: 'loop',
-                repeatDelay: 3,
-              }}
-              className="inline-block overflow-hidden border-r-2 border-blue-600 whitespace-nowrap"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="overflow-hidden whitespace-nowrap"
             >
-              <span className="text-[10px] md:text-xs font-medium text-gray-800">
+              <span className="font-medium text-gray-800 uppercase tracking-tight">
                 {message}
               </span>
-            </motion.span>
+            </motion.div>
           </div>
 
-          <div className="flex items-center space-x-3 md:space-x-4 text-xs font-semibold text-gray-600">
-            <div className="p-4 border-b border-white/10">
-              {user ? (
-                <div className="relative overflow-hidden group w-full bg-slate-900 p-5 rounded-3xl border border-white/10 shadow-2xl">
-                  <div className="absolute -top-10 -right-10 w-24 h-24 bg-yellow-400/10 blur-3xl rounded-full"></div>
-
-                  <div className="relative flex flex-col gap-5">
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 shrink-0 bg-yellow-400 rounded-2xl flex items-center justify-center text-slate-900 shadow-[0_8px_20px_rgba(250,204,21,0.3)] ring-1 ring-white/20">
-                        <span className="text-xl font-black italic">
-                          {user.user_metadata?.full_name?.charAt(0) ||
-                            user.email?.charAt(0)}
-                        </span>
-                      </div>
-
-                      <div className="flex-1">
-                        <p className="text-slate-400 text-[10px] uppercase font-black tracking-[0.2em] mb-1">
-                          Student Profile
-                        </p>
-                        <h2 className="text-white font-bold text-lg leading-tight tracking-tight">
-                          {user.user_metadata?.full_name || 'Festus'}
-                        </h2>
-                        <div className="inline-flex items-center gap-1.5 mt-1 px-2 py-0.5 bg-yellow-400/10 rounded-full border border-yellow-400/20">
-                          <span className="w-1 h-1 bg-yellow-400 rounded-full animate-pulse"></span>
-                          <span className="text-yellow-400 text-[9px] uppercase font-black tracking-widest">
-                            {user.user_metadata?.level || '100'} Level
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={handleLogout}
-                      className="group/btn relative w-full overflow-hidden py-3 bg-white/5 hover:bg-red-500/10 rounded-xl border border-white/10 hover:border-red-500/30 transition-all duration-300"
-                    >
-                      <span className="relative z-10 text-white/60 group-hover/btn:text-red-400 text-[10px] font-black uppercase tracking-[0.3em] transition-colors">
-                        Logout Session
-                      </span>
-                    </button>
-                  </div>
+          {/* RIGHT SIDE: Student Profile (Straight Format) */}
+          <div className="flex items-center ml-4">
+            {user ? (
+              <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 pl-1 pr-3 py-1 rounded-full">
+                {/* Avatar Circle */}
+                <div className="w-7 h-7 bg-yellow-400 rounded-full flex items-center justify-center text-slate-900 shadow-sm border border-white">
+                  <span className="text-[10px] font-black italic">
+                    {user.user_metadata?.full_name?.charAt(0) ||
+                      user.email?.charAt(0)}
+                  </span>
                 </div>
-              ) : (
-                <button className="w-full py-4 bg-yellow-400 text-slate-900 font-black rounded-2xl uppercase tracking-widest text-xs shadow-xl shadow-yellow-400/20 active:scale-95 transition-transform">
-                  Access Portal
+
+                {/* Name & Level (Side by Side) */}
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-900 font-bold whitespace-nowrap">
+                    {user.user_metadata?.full_name || 'Festus'}
+                  </span>
+                  <span className="bg-yellow-400/20 text-yellow-600 text-[8px] px-2 py-0.5 rounded-full font-black uppercase">
+                    Lvl {user.user_metadata?.level || '100'}
+                  </span>
+                </div>
+
+                {/* Vertical Divider */}
+                <div className="h-4 w-[1px] bg-slate-300"></div>
+
+                {/* Simple Logout Link */}
+                <button
+                  onClick={handleLogout}
+                  className="text-slate-400 hover:text-red-500 font-black text-[9px] uppercase tracking-widest transition-colors"
+                >
+                  Logout
                 </button>
-              )}
-            </div>
+              </div>
+            ) : (
+              <button className="bg-slate-900 text-white px-4 py-1.5 rounded-full font-black uppercase text-[9px] tracking-widest hover:bg-blue-600 transition-all">
+                Portal Login
+              </button>
+            )}
           </div>
         </div>
 
