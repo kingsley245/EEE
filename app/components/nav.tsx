@@ -393,9 +393,12 @@ export default function Navbar() {
                     Guest Mode
                   </p>
                 </div>
-                <p className="text-blue-300/60 text-[9px] font-bold pl-1 uppercase">
+                <Link
+                  to="/login"
+                  className="text-blue-300/60 text-[9px] font-bold pl-1 uppercase"
+                >
                   Login for full access
-                </p>
+                </Link>
               </div>
             )}
           </div>
