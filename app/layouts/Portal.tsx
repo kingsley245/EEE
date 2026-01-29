@@ -37,6 +37,10 @@ export default function PortalLayout() {
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+  const [assignments, setAssignments] = useState([]);
+
+  // We get the level from the logged-in Supabase user
+  const userLevel = user?.user_metadata?.level;
 
   return (
     <div className="max-w-6xl mx-auto px-4">

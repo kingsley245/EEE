@@ -9,10 +9,8 @@ import {
 
 import type { Route } from './+types/root';
 import './app.css';
-import Footer from './components/footer';
-import Navbar from './components/nav';
+
 import BackToTop from './components/Animate';
-import Hero from './components/LandingPage';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

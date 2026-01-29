@@ -87,12 +87,9 @@ export default function Hero() {
                       <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                         Welcome back,
                       </p>
-                      <p className="text-sm font-bold text-blue-600">
-                        {user.name}
-                      </p>
                     </div>
                     <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-black border-2 border-blue-200">
-                      {user.name.charAt(0)}
+                      {user?.full_name?.charAt(0) || 'U'}
                     </div>
                     <button
                       onClick={() => setUser(null)}
@@ -236,7 +233,7 @@ export default function Hero() {
         <div
           className={`fixed inset-0 h-screen w-screen bg-black/60 backdrop-blur-sm transition-opacity duration-500 ${
             mobileMenuOpen
-              ? 'opacity-100 z-[110]'
+              ? 'opacity-100 z-110'
               : 'opacity-0 pointer-events-none -z-10'
           }`}
           onClick={() => setMobileMenuOpen(false)}
@@ -246,7 +243,7 @@ export default function Hero() {
         <div
           className={`fixed top-0 right-0 h-screen w-72 bg-[#001489] shadow-2xl transform transition-transform duration-500 
       ease-[cubic-bezier(0.33,1,0.68,1)] ${
-        mobileMenuOpen ? 'translate-x-0 z-[120]' : 'translate-x-full'
+        mobileMenuOpen ? 'translate-x-0 z-120' : 'translate-x-full'
       }`}
         >
           {/* Drawer Header */}
