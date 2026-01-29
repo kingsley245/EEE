@@ -13,6 +13,10 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -25,4 +29,15 @@ body {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+}
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  overflow-x: hidden;
 }

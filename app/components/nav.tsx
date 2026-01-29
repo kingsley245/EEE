@@ -125,59 +125,53 @@ export default function Navbar() {
   return (
     <>
       <header>
-        <div className="flex bg-white text-black text-[10px] md:text-xs py-1.5 px-4 md:px-6 justify-between items-center border-b border-gray-100">
-          {/* LEFT SIDE: Breaking News */}
-          <div className="flex items-center flex-1">
-            <span className="bg-red-500 text-white px-2 py-0.5 font-bold mr-3 rounded animate-pulse shrink-0">
+        <div className="w-full bg-white text-black py-1 px-3 flex justify-between items-center border-b border-gray-100 overflow-hidden">
+          {/* LEFT: Live News */}
+          <div className="flex items-center min-w-0 flex-1">
+            <span className="bg-red-500 text-white px-1.5 py-0.5 font-black text-[8px] rounded sm:text-[10px] animate-pulse shrink-0 mr-2">
               LIVE
             </span>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="overflow-hidden whitespace-nowrap"
-            >
-              <span className="font-medium text-gray-800 uppercase tracking-tight">
-                {message}
-              </span>
-            </motion.div>
+            <p className="truncate text-[9px] font-bold text-gray-800 uppercase tracking-tighter">
+              {message}
+            </p>
           </div>
 
-          {/* RIGHT SIDE: Student Profile (Straight Format) */}
-          <div className="flex items-center ml-4">
+          {/* RIGHT: Compact Student Profile */}
+          <div className="flex items-center ml-2 shrink-0">
             {user ? (
-              <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 pl-1 pr-3 py-1 rounded-full">
-                {/* Avatar Circle */}
-                <div className="w-7 h-7 bg-yellow-400 rounded-full flex items-center justify-center text-slate-900 shadow-sm border border-white">
-                  <span className="text-[10px] font-black italic">
+              <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 pl-1 pr-2 py-0.5 rounded-full">
+                <div className="w-5 h-5 bg-yellow-400 rounded-full flex items-center justify-center text-slate-900 border border-white">
+                  <span className="text-[9px] font-black italic">
                     {user.user_metadata?.full_name?.charAt(0) ||
                       user.email?.charAt(0)}
                   </span>
                 </div>
-
-                {/* Name & Level (Side by Side) */}
-                <div className="flex items-center gap-2">
-                  <span className="text-slate-900 font-bold whitespace-nowrap">
-                    {user.user_metadata?.full_name || 'Festus'}
-                  </span>
-                  <span className="bg-yellow-400/20 text-yellow-600 text-[8px] px-2 py-0.5 rounded-full font-black uppercase">
-                    Lvl {user.user_metadata?.level || '100'}
-                  </span>
-                </div>
-
-                {/* Vertical Divider */}
-                <div className="h-4 w-[1px] bg-slate-300"></div>
-
-                {/* Simple Logout Link */}
-                <button
-                  onClick={handleLogout}
-                  className="text-slate-400 hover:text-red-500 font-black text-[9px] uppercase tracking-widest transition-colors"
-                >
-                  Logout
+                {/* Hide name on very small screens to prevent overlap */}
+                <span className="hidden sm:inline text-slate-900 font-bold text-[9px]">
+                  {user.user_metadata?.full_name?.split(' ')[0] || 'Festus'}
+                </span>
+                <span className="bg-yellow-400/20 text-yellow-600 text-[7px] px-1.5 py-0.5 rounded-full font-black">
+                  {user.user_metadata?.level || '100'}
+                </span>
+                <button onClick={handleLogout} className="ml-1 text-slate-400">
+                  <svg
+                    className="w-3 h-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="3"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    />
+                  </svg>
                 </button>
               </div>
             ) : (
-              <button className="bg-slate-900 text-white px-4 py-1.5 rounded-full font-black uppercase text-[9px] tracking-widest hover:bg-blue-600 transition-all">
-                Portal Login
+              <button className="text-[9px] font-black uppercase tracking-widest bg-slate-900 text-white px-3 py-1 rounded-full">
+                Login
               </button>
             )}
           </div>
