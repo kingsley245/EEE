@@ -111,7 +111,7 @@ const AssignmentList = () => {
 
         setUserLevel(cleanNumber);
 
-        const url = `https://eee-backend-yspo.onrender.com/api/assignments?populate=*&filters[Target_level][$contains]=${cleanNumber}`;
+        const url = `http://localhost:1337/api/assignments?populate=*&filters[Target_level][$contains]=${cleanNumber}`;
 
         const response = await fetch(url);
         const result = await response.json();

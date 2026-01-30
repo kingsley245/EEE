@@ -47,7 +47,7 @@ const AssignmentDetail = () => {
         if (user) setUserEmail(user.email || '');
 
         const res = await fetch(
-          `https://eee-backend-yspo.onrender.com/api/assignments/${id}?populate=*`,
+          `http://localhost:1337//api/assignments/${id}?populate=*`,
         );
         const result = await res.json();
 
@@ -109,21 +109,18 @@ const AssignmentDetail = () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      const res = await fetch(
-        `https://eee-backend-yspo.onrender.com/api/submissions`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            data: {
-              Student_Name: user?.user_metadata?.full_name || 'Anonymous',
-              Student_Email: user?.email,
-              Content: submission,
-              assignment: id,
-            },
-          }),
-        },
-      );
+      const res = await fetch(`http://localhost:1337/api/submissions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          data: {
+            Student_Name: user?.user_metadata?.full_name || 'Anonymous',
+            Student_Email: user?.email,
+            Content: submission,
+            assignment: id,
+          },
+        }),
+      });
       if (res.ok) alert('🚀 Work submitted successfully!');
     } catch (error) {
       console.error('Submission Error:', error);

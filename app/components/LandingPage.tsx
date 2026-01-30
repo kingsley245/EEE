@@ -82,22 +82,20 @@ export default function Hero() {
               <div className="hidden md:flex items-center gap-8">
                 {user ? (
                   // WHAT LOGGED-IN USERS SEE
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                        Welcome back,
-                      </p>
-                    </div>
-                    <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-black border-2 border-blue-200">
-                      {user?.full_name?.charAt(0) || 'U'}
-                    </div>
-                    <button
-                      onClick={() => setUser(null)}
-                      className="text-[10px] font-black uppercase text-red-500 hover:text-red-700 ml-2"
+                  <>
+                    <Link
+                      to="/login"
+                      className="text-xs font-black uppercase tracking-widest text-slate-900"
                     >
-                      Logout
-                    </button>
-                  </div>
+                      Login
+                    </Link>
+                    <Link
+                      to="/register"
+                      className="bg-blue-600 text-white px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-500/20"
+                    >
+                      Register
+                    </Link>
+                  </>
                 ) : (
                   // WHAT LOGGED-OUT USERS SEE (Your current buttons)
                   <>

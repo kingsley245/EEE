@@ -13,7 +13,7 @@ interface AssignmentCardProps {
 }
 
 const AssignmentCard = ({ attributes, id, onClick }: AssignmentCardProps) => {
-  console.log('Card ID:', id, 'Level:', attributes.Target_Level);
+  console.log('Card ID:', id, 'Level:', attributes.Target_Level); 
   const { Title, Assignment_Type, Target_Level, Deadline } = attributes;
 
   const dueDate = new Date(Deadline);

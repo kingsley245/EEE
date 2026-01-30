@@ -17,6 +17,8 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [level, setLevel] = useState('100 level');
+  const [matNo, setMatNo] = useState('');
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -26,20 +28,22 @@ export default function Register() {
 
     const { data, error } = await supabase.auth.signUp({
       email,
-
       password,
       options: {
         data: {
           full_name: fullName,
           level: level,
+          mat_no: matNo,
+          role: 'student',
         },
       },
     });
+
     if (error) {
       alert(error.message);
     } else {
       alert(
-        'Registration Successful! check your email for a confirmation Link',
+        'Registration Successful! Check your email for a confirmation Link',
       );
       navigate('/login');
     }
@@ -122,6 +126,26 @@ export default function Register() {
                     placeholder="John Doe"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
+                    required
+                    className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all outline-none"
+                  />
+                </div>
+              </div>
+              {/* Matric Number */}
+              <div>
+                <label className="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2">
+                  Matric Number
+                </label>
+                <div className="relative group">
+                  <Zap
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors"
+                    size={18}
+                  />
+                  <input
+                    type="text"
+                    placeholder="NDU/2021/045"
+                    value={matNo}
+                    onChange={(e) => setMatNo(e.target.value)}
                     required
                     className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all outline-none"
                   />

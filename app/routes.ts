@@ -23,6 +23,8 @@ export default [
     route('electrical-wiring', 'routes/Wiring/route.tsx'),
     route('assignments/:id', 'pages/AssignmentPage.tsx'),
     route('ee-essentials', 'routes/Essentials/route.tsx'),
+    route('Posts', 'pages/Post.tsx'),
+    route('admin', 'pages/AdminDash.tsx'),
     route('machines', 'routes/Machines/route.tsx'),
     route('power', 'routes/Power/route.tsx'),
     route('control', 'routes/Control/route.tsx'),

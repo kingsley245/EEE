@@ -3,6 +3,7 @@ import { slides } from '~/lib/HomeData';
 import { Link } from 'react-router';
 import CourseCurriculum from '~/components/courses';
 import AssignmentList from '~/pages/Asignment';
+import WisdomWall from '~/components/posting';
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -34,7 +35,7 @@ const Home = () => {
 
   return (
     <>
-      <section className="relative w-full h-[80vh] overflow-hidden bg-black text-white mt-5">
+      <section className="relative w-full h-[80vh] overflow-hidden bg-black text-white ">
         {/* Slides Container */}
         <div className="relative w-full h-full">
           {slides.map((slide, index) => (
@@ -115,6 +116,7 @@ const Home = () => {
       </section>
       <CourseCurriculum />
       <AssignmentList />
+      <WisdomWall />
     </>
   );
 };
