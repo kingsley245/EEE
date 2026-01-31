@@ -53,7 +53,6 @@ export default function Register() {
     <>
       <div className="min-h-screen bg-slate-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl w-full bg-white rounded-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-slate-100">
-          {/* --- LEFT SIDE: THE VIBE / INFO --- */}
           <div className="md:w-5/12 bg-linear-to-br from-[#001489] to-[#000a4d] p-10 text-white flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-8">
@@ -110,7 +109,7 @@ export default function Register() {
               </p>
             </div>
 
-            <form className="space-y-5" onSubmit={handleRegister}>
+            <form className="space-y-5 text-black" onSubmit={handleRegister}>
               {/* Full Name */}
               <div>
                 <label className="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2">
