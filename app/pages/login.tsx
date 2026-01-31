@@ -51,7 +51,7 @@ export default function Login() {
 
           {/* Form Card */}
           <div className="bg-white p-8 rounded-4xl shadow-xl border border-slate-100">
-            <form onSubmit={handleLogin} className="space-y-6">
+            <form onSubmit={handleLogin} className="space-y-6 text-black">
               {/* Email Address */}
               <div>
                 <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-1">

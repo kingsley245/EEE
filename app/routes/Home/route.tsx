@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import CourseCurriculum from '~/components/courses';
 import AssignmentList from '~/pages/Asignment';
 import WisdomWall from '~/components/posting';
+import PQLibrary from '~/components/PastQuestion';
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -117,6 +118,7 @@ const Home = () => {
       <CourseCurriculum />
       <AssignmentList />
       <WisdomWall />
+      <PQLibrary />
     </>
   );
 };

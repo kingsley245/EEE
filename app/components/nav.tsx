@@ -125,7 +125,7 @@ export default function Navbar() {
   return (
     <>
       <header>
-        <div className="w-full bg-white text-black py-1 px-3 flex justify-between items-center border-b border-gray-100 overflow-hidden">
+        <div className="w-full bg-white text-black py-1 px-3 flex justify-between items-center mb-3 border-b border-gray-100 overflow-hidden">
           {/* LEFT: Live News */}
           <div className="flex items-center min-w-0 flex-1">
             <span className="bg-red-500 text-white px-1.5 py-0.5 font-black text-[8px] rounded sm:text-[10px] animate-pulse shrink-0 mr-2">
@@ -134,6 +134,24 @@ export default function Navbar() {
             <p className="truncate text-[9px] font-bold text-gray-800 uppercase tracking-tighter">
               {message}
             </p>
+
+            {/* DESKTOP ONLY: Contribution Links */}
+            <div className="hidden md:flex items-center ml-4 gap-3 border-l pl-4 border-gray-100">
+              <Link
+                to="/portal/contributePQ"
+                className="text-[9px] font-black text-blue-700 hover:text-blue-900 uppercase tracking-widest flex items-center gap-1"
+              >
+                <span className="bg-blue-100 p-0.5 rounded">+</span> Contribute
+                PQ
+              </Link>
+              <Link
+                to="/portal/posts"
+                className="text-[9px] font-black text-slate-500 hover:text-black uppercase tracking-widest flex items-center gap-1"
+              >
+                <span className="bg-slate-100 p-0.5 rounded">+</span> Post
+                Content
+              </Link>
+            </div>
           </div>
 
           {/* RIGHT: Compact Student Profile */}
@@ -401,6 +419,57 @@ export default function Navbar() {
                 </Link>
               </div>
             )}
+          </div>
+          <div className="p-4 bg-black/20 grid grid-cols-2 gap-2">
+            <Link
+              to="/portal/contributePQ"
+              onClick={() => setIsDrawerOpen(false)}
+              className="flex flex-col items-center justify-center gap-2 py-4 bg-blue-600 rounded-2xl border border-blue-400/20 active:scale-95 transition-all shadow-lg"
+            >
+              <div className="bg-white/20 p-2 rounded-lg">
+                <svg
+                  className="w-5 h-5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2.5"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+              </div>
+              <span className="text-[8px] font-black text-white uppercase tracking-widest">
+                Upload PQ
+              </span>
+            </Link>
+
+            <Link
+              to="/portal/posts"
+              onClick={() => setIsDrawerOpen(false)}
+              className="flex flex-col items-center justify-center gap-2 py-4 bg-white/5 rounded-2xl border border-white/10 active:scale-95 transition-all"
+            >
+              <div className="bg-white/10 p-2 rounded-lg">
+                <svg
+                  className="w-5 h-5 text-blue-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2.5"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                  />
+                </svg>
+              </div>
+              <span className="text-[8px] font-black text-white uppercase tracking-widest">
+                Post Content
+              </span>
+            </Link>
           </div>
           <div className="flex flex-col border-b border-white/10 bg-black/10">
             {/* <div className="flex justify-end p-4">

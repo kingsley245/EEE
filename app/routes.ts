@@ -26,6 +26,8 @@ export default [
     route('Posts', 'pages/Post.tsx'),
     route('admin', 'pages/AdminDash.tsx'),
     route('machines', 'routes/Machines/route.tsx'),
+    route('contribute', 'pages/contribute.tsx'),
+    route('contributePQ', 'pages/contributePQ.tsx'),
     route('power', 'routes/Power/route.tsx'),
     route('control', 'routes/Control/route.tsx'),
   ]),
