@@ -32,7 +32,7 @@ export default function ProtectedRoute({
       <div className="h-screen w-full flex flex-col items-center justify-center bg-white">
         <div className="w-10 h-10 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin"></div>
         <p className="mt-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
-          Verifying Credentials...
+          Verifying Credentials... please wait
         </p>
       </div>
     );

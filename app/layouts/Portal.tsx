@@ -49,7 +49,7 @@ export default function PortalLayout() {
       <div className="h-screen w-full flex flex-col items-center justify-center bg-white">
         <div className="w-8 h-8 border-4 border-blue-50 border-t-blue-600 rounded-full animate-spin"></div>
         <p className="mt-4 text-[9px] font-black uppercase tracking-[0.3em] text-slate-400">
-          Securing Environment
+          please wait. environment protected
         </p>
       </div>
     );
