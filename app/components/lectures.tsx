@@ -24,7 +24,6 @@ export default function FeaturedLecturers() {
           'https://eee-backend-yspo.onrender.com/api/lectures?populate=*',
         );
 
-        // If Render is sleeping, response might not be ok
         if (!response.ok) throw new Error('Backend is sleeping or unreachable');
 
         const result = await response.json();

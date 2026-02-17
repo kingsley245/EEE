@@ -12,7 +12,7 @@ export default function PQLibrary() {
   useEffect(() => {
     const fetchLibrary = async () => {
       try {
-        // We only pull Approved PQs for the public
+        // Only approved past questions will be live
         const res = await fetch(
           `https://eee-backend-yspo.onrender.com/api/past-questions?filters[Approved][$eq]=true&populate=*`,
         );

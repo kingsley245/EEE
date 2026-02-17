@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { motion } from 'framer-motion';
 import { Zap, ArrowRight, Menu, X, BookOpen } from 'lucide-react';
-import Features from '../components/Features';
+// import Features from '../components/Features';
 import { supabase } from '~/lib/supabase';
 import lab from '../Assets/lab.jpg';
 
