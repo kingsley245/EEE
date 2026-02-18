@@ -45,7 +45,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <main className="max-w-6xl mx-auto top-0 my-8">
+    <main className="w-full md:max-w-6xl mx-auto top-0 my-1">
       <Outlet />
 
       <BackToTop />

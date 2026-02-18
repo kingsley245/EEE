@@ -13,7 +13,7 @@ export default [
   route('forgot-password', 'pages/forgot.tsx'),
   route('aboutus', 'pages/About.tsx'),
   route('reset-password', 'pages/resetpassword.tsx'),
-
+  // The private Routes   protected
   route('portal', 'layouts/Portal.tsx', [
     index('routes/Home/route.tsx'),
     route('electronics', 'routes/Electronics/route.tsx'),

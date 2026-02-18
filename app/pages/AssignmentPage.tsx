@@ -121,7 +121,7 @@ const AssignmentDetail = () => {
           },
         }),
       });
-      if (res.ok) alert('🚀 Work submitted successfully!');
+      if (res.ok) alert(' Work submitted successfully!');
     } catch (error) {
       console.error('Submission Error:', error);
     }

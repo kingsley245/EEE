@@ -13,7 +13,6 @@ interface Assignment {
   documentId: number;
 }
 
-// --- Sub-Component: AssignmentCard ---
 const AssignmentCard = ({
   attributes,
   id,
@@ -143,7 +142,7 @@ const AssignmentList = () => {
     );
 
   return (
-    <div className="max-w-7xl mx-auto p-6 min-h-screen bg-black">
+    <div className="max-w-7xl mx-auto p-6 min-h-70% bg-black">
       <header className="mb-12">
         <h2 className="text-white text-3xl font-black uppercase tracking-tighter">
           Current Tasks{' '}

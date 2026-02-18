@@ -11,6 +11,20 @@ export default function PortalLayout() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // const checkUser = async () => {
+    //   const {
+    //     data: { session },
+    //   } = await supabase.auth.getSession();
+
+    //   if (!session) {
+    //     navigate('/', { replace: true });
+    //   } else {
+    //     setUser(session.user);
+    //     setIsLoading(false);
+    //   }
+    // };
+
+    // checkUser();
     const checkUser = async () => {
       const {
         data: { session },
@@ -18,10 +32,32 @@ export default function PortalLayout() {
 
       if (!session) {
         navigate('/', { replace: true });
-      } else {
-        setUser(session.user);
-        setIsLoading(false);
+        return;
       }
+
+      // 1. Check if the user is actually TRYING to go to an admin page
+      const isAdminPath =
+        window.location.pathname.includes('/portal/admin') ||
+        window.location.pathname.includes('/portal/contribute');
+
+      if (isAdminPath) {
+        // 2. ONLY check the database if they are hitting /portal/admin
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', session.user.id)
+          .single();
+
+        if (profile?.role !== 'admin') {
+          alert('You are not fully authorized to access this page.');
+          navigate('/portal', { replace: true });
+          return;
+        }
+      }
+
+      // If it's a normal portal page OR they are an admin, let them in
+      setUser(session.user);
+      setIsLoading(false);
     };
 
     checkUser();

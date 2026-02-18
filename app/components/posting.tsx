@@ -87,7 +87,7 @@ export default function WisdomWall() {
     );
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4 relative">
+    <div className="min-h-70%    bg-slate-50 py-12 px-4 relative">
       <div className="max-w-6xl mx-auto">
         <header className="mb-12 text-center">
           <h1 className="text-4xl font-black text-slate-900 mb-2 italic tracking-tighter">

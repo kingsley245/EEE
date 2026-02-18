@@ -77,7 +77,7 @@ export default function ModerationPQs() {
                 {pq.Media?.map((file: any) => (
                   <a
                     key={file.id}
-                    href={file.url} // Cloudinary URLs are absolute, no need for localhost:1337
+                    href={file.url}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-300 transition-colors group"
